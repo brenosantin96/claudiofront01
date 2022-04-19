@@ -1,0 +1,10 @@
+.container {
+    width: 100%;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.navbarLogo {}
+
+.navbarMenu {}
