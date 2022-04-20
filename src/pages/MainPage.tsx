@@ -9,7 +9,6 @@ export const Main = () => {
             <div className={styles.containerMain}>
                 Olá, eu sou o Main.
             </div>
-
         </>
 
     )

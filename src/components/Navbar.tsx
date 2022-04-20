@@ -1,6 +1,7 @@
 import React from "react"
 import styles from "./Navbar.module.css";
 import logoIMG from "../../assets/logoClaudioPNG.png";
+import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
     return (
@@ -9,9 +10,10 @@ export const Navbar = () => {
                 <img className={styles.imgLogo} src={logoIMG} alt="" />
             </div>
             <div className={styles.navbarMenu}>
-                <a className={styles.linksnavbarMenu} href="#">Obras</a>
-                <a className={styles.linksnavbarMenu} href="#">Facturas</a>
-                <a className={styles.linksnavbarMenu} href="#">Provedores</a>
+                <NavLink className={styles.linksnavbarMenu} to="/main">Home</NavLink>
+                <NavLink className={styles.linksnavbarMenu} to="/obras">Obras</NavLink>
+                <NavLink className={styles.linksnavbarMenu} to="/facturas">Facturas</NavLink>
+                <NavLink className={styles.linksnavbarMenu} to="/provedores">Provedores</NavLink>
             </div>
         </div>
     )
