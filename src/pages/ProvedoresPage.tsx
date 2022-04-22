@@ -9,7 +9,7 @@ const provedoresList = async () => {
     return provedores;
 }
 
-interface provedoresInterface {
+interface provedorInterface {
     id: number;
     name: string;
 }
@@ -18,7 +18,7 @@ interface provedoresInterface {
 
 export const ProvedoresPage = () => {
 
-    const [provedoresData, setProvedoresData] = useState([]);
+    const [provedoresData, setProvedoresData] = useState<provedorInterface>([]);
 
 
     useEffect(() => {
@@ -32,7 +32,10 @@ export const ProvedoresPage = () => {
             <Navbar />
             <div className={styles.containerProvedores}>
                 <div className={styles.leftSideProvedores}>
-                    {provedoresData}
+                    {provedoresData &&
+
+                        provedoresData.map((item) => (<li>{item.id} - {item.name}</li>))}
+
                 </div>
                 <div className={styles.rightSideProvedores}>
 
