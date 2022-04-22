@@ -16,14 +16,16 @@ interface provedorInterface {
 
 
 
+
 export const ProvedoresPage = () => {
 
-    const [provedoresData, setProvedoresData] = useState<provedorInterface>([]);
+    const [provedoresData, setProvedoresData] = useState("");
+    const [provedoresInfo, setProvedoresInfo] = useState<any>([])
 
 
     useEffect(() => {
         api.getAllProvedores()
-            .then((data) => setProvedoresData(data))
+            .then((data) => { setProvedoresData(data); setProvedoresInfo(data); })
             .catch((err) => console.log(err))
     })
 
@@ -32,10 +34,9 @@ export const ProvedoresPage = () => {
             <Navbar />
             <div className={styles.containerProvedores}>
                 <div className={styles.leftSideProvedores}>
-                    {provedoresData &&
-
-                        provedoresData.map((item) => (<li>{item.id} - {item.name}</li>))}
-
+                    <ul>
+                    {provedoresInfo.map((item : any, index : number)=> (<li> {item} </li>))}
+                    </ul>
                 </div>
                 <div className={styles.rightSideProvedores}>
 
