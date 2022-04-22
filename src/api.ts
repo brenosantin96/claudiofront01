@@ -24,4 +24,11 @@ export const api = {
         return response.data;
     },
 
+    getAllProvedores: async () => {
+
+        let response = await axios.get(`${BASE}/provedores`);
+        return response.data;
+
+    }
+
 }
