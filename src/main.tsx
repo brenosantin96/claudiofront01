@@ -7,17 +7,12 @@ import { Main } from "./pages/MainPage";
 import { ObrasPage } from './pages/ObrasPage';
 import { FacturasPage } from './pages/FacturasPage';
 import { ProvedoresPage } from './pages/ProvedoresPage';
+import {RouteList} from './routes/RouteList'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<LoginPage />}></Route>
-        <Route path='/main' element={<Main />}></Route>
-        <Route path='/obras' element={<ObrasPage />}></Route>
-        <Route path='/facturas' element={<FacturasPage />}></Route>
-        <Route path='/provedores' element={<ProvedoresPage />}></Route>
-      </Routes>
+      <RouteList />
     </BrowserRouter>
   </React.StrictMode>
 )

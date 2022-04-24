@@ -1,16 +1,17 @@
-.containerProvedores{
-    padding-top: 80px;
-    width: 100%;
-    
+.containerProvedores {
+    padding-top: 70px;
+    padding-left: 20px;
+    font-size: 20px;
+    color: white;
 }
 
-.leftSideProvedores{
+.leftSideProvedores {
     width: 40%;
     border: 1px solid red;
     height: 600px;
 }
 
-.rightSideProvedores{
+.rightSideProvedores {
     width: 40%;
     border: 1 px solid blue;
     height: 600px;
