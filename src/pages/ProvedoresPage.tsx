@@ -4,30 +4,22 @@ import { api } from "../api";
 import { useEffect, useState } from "react";
 
 
-const provedoresList = async () => {
-    const provedores = await api.getAllProvedores()
-    return provedores;
-}
-
 interface provedorInterface {
     id: number;
     name: string;
 }
 
-
-
-
 export const ProvedoresPage = () => {
 
-    const [provedoresData, setProvedoresData] = useState("");
-    const [provedoresInfo, setProvedoresInfo] = useState<any>([])
+    const [provedoresInfo, setProvedoresInfo] = useState<provedorInterface[]>([])
 
+    useEffect(()=> {getProvedores();}, [])
 
-    useEffect(() => {
-        api.getAllProvedores()
-            .then((data) => { setProvedoresData(data); setProvedoresInfo(data); })
-            .catch((err) => console.log(err))
-    })
+    const getProvedores = async () => {
+        const data = await api.getAllProvedores();
+        setProvedoresInfo(data);
+    }
+
 
     return (
         <>
@@ -35,7 +27,7 @@ export const ProvedoresPage = () => {
             <div className={styles.containerProvedores}>
                 <div className={styles.leftSideProvedores}>
                     <ul>
-                    {provedoresInfo.map((item : any, index : number)=> (<li> {item} </li>))}
+                        {provedoresInfo.map((item, index)=> (<li key={index}>{item.id} {item.name}</li>))}
                     </ul>
                 </div>
                 <div className={styles.rightSideProvedores}>

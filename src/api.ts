@@ -27,7 +27,7 @@ export const api = {
     getAllProvedores: async () => {
 
         let response = await axios.get(`${BASE}/provedores`);
-        return response.data;
+        return response.data.provedores;
 
     }
 
