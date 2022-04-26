@@ -31,9 +31,11 @@ export const api = {
 
     },
 
-    createProvedor: async (name : string) => {
+    createProvedor: async (name: string) => {
 
-        let response = await axios.post(`${BASE}/provedores`);
+        let response = await axios.post(`${BASE}/provedores`, {
+            name
+        });
         return response.data;
 
     }

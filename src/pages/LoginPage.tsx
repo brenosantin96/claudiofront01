@@ -17,11 +17,11 @@ function LoginPage() {
     if (email !== "" && password !== "") {
       const juca = await api.signIn(email, password)
       console.log(juca);
-      if(juca.isAdmin === '1'){
+      if(juca.isAdmin === true){
         let path = `/main`;
         navigate(path)
       }
-      if(juca.isAdmin !== '1'){
+      if(juca.isAdmin !== true){
         alert("sem permissao de acesso");
       }
     } else {

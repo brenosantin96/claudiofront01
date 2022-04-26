@@ -15,7 +15,7 @@ export const ProvedoresPage = () => {
     const [nameProvedor, setNameProvedor] = useState('');
     const [addingProvedor, setAddingProvedor] = useState(false);
 
-    useEffect(() => { getProvedores(); }, [])
+    useEffect(() => { getProvedores(); }, [provedoresInfo])
 
     const getProvedores = async () => {
         const data = await api.getAllProvedores();
@@ -45,7 +45,7 @@ export const ProvedoresPage = () => {
             <div className={styles.containerProvedores}>
                 <div className={styles.leftSideProvedores}>
                     <ul>
-                        {provedoresInfo.map((item, index) => (<li key={index}>{item.id} {item.name}</li>))}
+                        {provedoresInfo.map((item) => (<li>{item.id} {item.name}</li>))}
                     </ul>
                 </div>
                 <div className={styles.rightSideProvedores}>
