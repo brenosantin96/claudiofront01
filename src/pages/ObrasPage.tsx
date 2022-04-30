@@ -1,13 +1,12 @@
 import { Navbar } from "../components/Navbar"
-import styles from "./ObrasPage.module.css"
-import 'bootstrap/dist/css/bootstrap.css';
+import '../index.css'
 
 export const ObrasPage = () => {
     return (
 
         <>
             <Navbar />
-            <div className={styles.containerObrasPage}>
+            <div className="containerObrasPage">
                 Pagina do Obras.
             </div>
         </>

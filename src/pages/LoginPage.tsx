@@ -1,28 +1,29 @@
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from 'react'
 import logo from './logo.svg'
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
-import styles from './LoginPage.module.css'
+import '../index.css'
 import { api } from '../api';
 import { Main } from './MainPage';
-import 'bootstrap/dist/css/bootstrap.css';
+import { Button } from 'react-bootstrap';
+
 
 function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  let navigate = useNavigate(); 
- 
+  let navigate = useNavigate();
+
   const handleLoginButton = async (e: FormEvent) => {
     e.preventDefault();
     if (email !== "" && password !== "") {
       const juca = await api.signIn(email, password)
       console.log(juca);
-      if(juca.isAdmin === true || juca.isAdmin === '1'){
+      if (juca.isAdmin === true || juca.isAdmin === '1') {
         let path = `/main`;
         navigate(path)
       }
-      if(juca.isAdmin === false || juca.isAdmin === '0'){
+      if (juca.isAdmin === false || juca.isAdmin === '0') {
         alert("sem permissao de acesso");
       }
     } else {
@@ -43,15 +44,15 @@ function LoginPage() {
   return (
 
     <div>
-      <div className={styles.loginContainer}>
+      <div className="loginContainer">
         <div>
-          <h1 className={styles.titleH1}>Login</h1>
+          <h1 className="titleH1">Login</h1>
         </div>
         <div>
-          <form className={styles.loginForm}>
+          <form className="loginForm">
             <input id='emailInput' placeholder='Informe seu email' onChange={emailInputValue} type="text" />
             <input id='passInput' placeholder='Informe sua senha' onChange={passwordInputValue} type="password" />
-              <button type='submit' className={styles.buttonLogin} onClick={handleLoginButton}>Entrar</button>
+            <Button className="buttonLogin " variant="primary" type='submit' onClick={handleLoginButton}>Entrar</Button>
           </form>
         </div>
       </div>

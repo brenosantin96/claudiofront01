@@ -1,10 +1,8 @@
 import { Navbar } from "../components/Navbar"
-import styles from "./ProvedoresPage.module.css"
+import '../index.css'
 import { api } from "../api";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Provedor } from '../components/provedores/Provedor'
-import 'bootstrap/dist/css/bootstrap.css';
-
 
 interface provedorInterface {
     id: number;
@@ -45,11 +43,11 @@ export const ProvedoresPage = () => {
     return (
         <>
             <Navbar />
-            <div className={styles.containerProvedores}>
-                <div className={styles.leftSideProvedores}>
+            <div className="containerProvedores">
+                <div className="leftSideProvedores">
                     {provedoresInfo.map((item) => (<Provedor id={item.id} name={item.name}></Provedor>))}
                 </div>
-                <div className={styles.rightSideProvedores}>
+                <div className="rightSideProvedores">
                     <button onClick={showAddProvedor}>Add provedor</button>
                     {addingProvedor && <div>
                         <input type="text" onChange={handleChangeInputNameProvedor} />
