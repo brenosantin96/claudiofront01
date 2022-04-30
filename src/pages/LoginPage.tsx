@@ -4,6 +4,7 @@ import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import styles from './LoginPage.module.css'
 import { api } from '../api';
 import { Main } from './MainPage';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function LoginPage() {
 
@@ -17,11 +18,11 @@ function LoginPage() {
     if (email !== "" && password !== "") {
       const juca = await api.signIn(email, password)
       console.log(juca);
-      if(juca.isAdmin === true){
+      if(juca.isAdmin === true || juca.isAdmin === '1'){
         let path = `/main`;
         navigate(path)
       }
-      if(juca.isAdmin !== true){
+      if(juca.isAdmin === false || juca.isAdmin === '0'){
         alert("sem permissao de acesso");
       }
     } else {

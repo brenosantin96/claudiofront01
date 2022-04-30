@@ -2,6 +2,8 @@ import { Navbar } from "../components/Navbar"
 import styles from "./ProvedoresPage.module.css"
 import { api } from "../api";
 import { ChangeEvent, useEffect, useState } from "react";
+import { Provedor } from '../components/provedores/Provedor'
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 interface provedorInterface {
@@ -15,7 +17,7 @@ export const ProvedoresPage = () => {
     const [nameProvedor, setNameProvedor] = useState('');
     const [addingProvedor, setAddingProvedor] = useState(false);
 
-    useEffect(() => { getProvedores(); }, [provedoresInfo])
+    useEffect(() => { getProvedores(); }, [])
 
     const getProvedores = async () => {
         const data = await api.getAllProvedores();
@@ -26,7 +28,7 @@ export const ProvedoresPage = () => {
         setAddingProvedor(true);
     }
 
-    const handleChangeInputNameProvedor = (e: ChangeEvent<HTMLInputElement>) =>{
+    const handleChangeInputNameProvedor = (e: ChangeEvent<HTMLInputElement>) => {
         setNameProvedor(e.target.value);
     }
 
@@ -36,6 +38,7 @@ export const ProvedoresPage = () => {
             console.log("Provedor criado com sucesso");
             setAddingProvedor(false);
         }
+        getProvedores();
     }
 
 
@@ -44,17 +47,13 @@ export const ProvedoresPage = () => {
             <Navbar />
             <div className={styles.containerProvedores}>
                 <div className={styles.leftSideProvedores}>
-                    <ul>
-                        {provedoresInfo.map((item) => (<li>{item.id} {item.name}</li>))}
-                    </ul>
+                    {provedoresInfo.map((item) => (<Provedor id={item.id} name={item.name}></Provedor>))}
                 </div>
                 <div className={styles.rightSideProvedores}>
                     <button onClick={showAddProvedor}>Add provedor</button>
                     {addingProvedor && <div>
-                        <input type="text" onChange={handleChangeInputNameProvedor}/>
+                        <input type="text" onChange={handleChangeInputNameProvedor} />
                         <button onClick={addProvedor}>Adicionar provedor!</button>
-
-
                     </div>}
                 </div>
             </div>
