@@ -129,6 +129,8 @@ body {
 }
 
 .containerProvedores {
+    display: flex;
+    justify-content: space-around;
     padding-top: 70px;
     padding-left: 20px;
     font-size: 20px;
@@ -137,12 +139,58 @@ body {
 
 .leftSideProvedores {
     width: 40%;
-    border: 1px solid red;
     height: 600px;
+    overflow-y: scroll;
+}
+
+.leftSideProvedores::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+.leftSideProvedores::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0);
+    /* color of the tracking area */
+}
+
+.leftSideProvedores::-webkit-scrollbar-thumb {
+    background-color: rgb(94, 88, 88);
+    /* color of the scroll thumb */
+    border-radius: 10px;
+    /* roundness of the scroll thumb */
+    border: none
+    /* creates padding around scroll thumb */
 }
 
 .rightSideProvedores {
     width: 40%;
     border: 1 px solid blue;
     height: 600px;
+}
+
+.provedorItem {
+    margin: 5px;
+    padding-left: 10px;
+    background-color: rgb(44, 41, 212);
+    border: 2px solid black;
+}
+
+.newProvedorForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.newProvedorForm input {
+    margin-bottom: 10px;
+}
+
+.newProvedorForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.editProvedorForm {
+    display: flex;
+    flex-direction: column;
 }

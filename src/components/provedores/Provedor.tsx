@@ -1,4 +1,4 @@
-import styles from "./Provedor.module.css";
+import "../../index.css";
 
 type Props = {
     id: number,
@@ -7,7 +7,7 @@ type Props = {
 
 export const Provedor = ({id, name}: Props) => {
     return (
-        <div className={styles.itemProvedor} >
+        <div key={id} className="provedorItem">
             {id} - {name}
         </div>
     )

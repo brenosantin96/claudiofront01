@@ -38,6 +38,22 @@ export const api = {
         });
         return response.data;
 
+    },
+
+    editProvedor: async (id: number, name?: string) => {
+
+        let response = await axios.put(`${BASE}/provedores/${id}`, {
+            name
+        });
+        return response.data;
+
+    },
+
+    GetOneProvedor: async (id: number) => {
+
+        let response = await axios.get(`${BASE}/provedores/${id}`);
+        return response.data;
+
     }
 
 }
