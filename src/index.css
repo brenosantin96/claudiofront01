@@ -191,6 +191,42 @@ body {
 }
 
 .editProvedorForm {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.editProvedorForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inputNumberIDEditProvedor {
+    width: 70px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.editProvedorForm label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.excludingProvedorForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.excludingProvedorForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inputNumberIDExcludeProvedor {
+    width: 70px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

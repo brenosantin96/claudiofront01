@@ -54,6 +54,11 @@ export const api = {
         let response = await axios.get(`${BASE}/provedores/${id}`);
         return response.data;
 
+    },
+
+    deleteOneProvedor: async (id: number) => {
+        let response = await axios.delete(`${BASE}/provedores/${id}`);
+        return response.data;
     }
 
 }

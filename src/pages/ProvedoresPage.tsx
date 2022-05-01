@@ -3,6 +3,7 @@ import '../index.css'
 import { api } from "../api";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Provedor } from '../components/provedores/Provedor'
+import { useNavigate } from 'react-router-dom';
 
 interface provedorInterface {
     id: number;
@@ -11,16 +12,21 @@ interface provedorInterface {
 
 export const ProvedoresPage = () => {
 
+    let navigate = useNavigate();
+
     const [provedoresInfo, setProvedoresInfo] = useState<provedorInterface[]>([])
     const [nameProvedor, setNameProvedor] = useState('');
 
     const [idForEditProvedor, setidForEditProvedor] = useState(0);
-    const [foundProvedor, setFoundProvedor] = useState('');
+    const [showInfosToEdit, setshowInfosToEdit] = useState(false);
 
     const [addingProvedor, setAddingProvedor] = useState(false);
     const [edittingProvedor, setEdittingProvedor] = useState(false);
+    const [inputNameEditProvedor, setInputNameEditProvedor] = useState('');
 
-    useEffect(() => { getProvedores(); }, [])
+    const [excludingProvedor, setExcludingProvedor] = useState(false);
+
+    useEffect(() => { getProvedores(); }, [edittingProvedor])
 
     const getProvedores = async () => {
         const data = await api.getAllProvedores();
@@ -29,10 +35,20 @@ export const ProvedoresPage = () => {
 
     const showAddProvedor = () => {
         setAddingProvedor(true);
+        setEdittingProvedor(false);
+        setExcludingProvedor(false);
     }
 
     const showEditProvedor = () => {
+        setAddingProvedor(false);
         setEdittingProvedor(true);
+        setExcludingProvedor(false);
+    }
+
+    const showExcludeProvedor = () => {
+        setAddingProvedor(false);
+        setEdittingProvedor(false);
+        setExcludingProvedor(true);
     }
 
     const handleChangeInputNameProvedor = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +57,13 @@ export const ProvedoresPage = () => {
 
     const handleChangeInputIDForEditProvedor = (e: ChangeEvent<HTMLInputElement>) => {
         setidForEditProvedor(parseInt(e.target.value));
+    }
+
+    const handleChangeInputEditNameProvedor = (e: ChangeEvent<HTMLInputElement>) => {
+        setInputNameEditProvedor(e.target.value);
+    }
+
+    const searchOneProvedor = (e: React.KeyboardEvent<HTMLInputElement>) => {
         getInfoOneProvedor(idForEditProvedor);
     }
 
@@ -50,6 +73,7 @@ export const ProvedoresPage = () => {
             console.log("Provedor criado com sucesso");
             setAddingProvedor(false);
         }
+
         getProvedores();
     }
 
@@ -59,19 +83,34 @@ export const ProvedoresPage = () => {
 
         if (data.name) {
             setNameProvedor(data.name);
+            setshowInfosToEdit(false);
             return;
         }
 
         if (data.provedor.name) {
             setNameProvedor(data.provedor.name)
-            console.log(data);
+            setshowInfosToEdit(true);
             return;
         }
 
     }
 
     const editProvedor = async () => {
-        //   const data = await api.ge
+        const data = await api.editProvedor(idForEditProvedor, inputNameEditProvedor);
+        if (data) {
+            console.log(data);
+            setshowInfosToEdit(false);
+        }
+        getProvedores();
+        navigate('/provedores'); //refreshing the page to see edited item.
+    }
+
+    const excludeProvedor = async () => {
+        const data = await api.deleteOneProvedor(idForEditProvedor);
+        if(data){
+            console.log(data);
+            setExcludingProvedor(false);
+        }
     }
 
 
@@ -85,9 +124,11 @@ export const ProvedoresPage = () => {
                 <div className="rightSideProvedores">
                     <button onClick={showAddProvedor}>Nuevo</button>
                     <button onClick={showEditProvedor}>Editar</button>
+                    <button onClick={showExcludeProvedor}>Excluir</button>
 
                     {/* Add Provedor Form */}
                     {addingProvedor && <div className="newProvedorForm">
+                    <h2>Adicionar um Provedor</h2>
                         <input type="text" placeholder="Informe o nome do novo provedor" onChange={handleChangeInputNameProvedor} />
                         <button onClick={addProvedor}>Adicionar provedor</button>
                         <button onClick={() => setAddingProvedor(false)}>Fechar</button>
@@ -97,10 +138,26 @@ export const ProvedoresPage = () => {
                     {edittingProvedor && <div className="editProvedorForm">
                         <h2>Editando um provedor</h2>
                         <label>ID:
-                            <input type="number" onChange={handleChangeInputIDForEditProvedor} />
+                            <input type="number" className="inputNumberIDEditProvedor" onChange={handleChangeInputIDForEditProvedor} onKeyUp={searchOneProvedor} />
                         </label>
                         <h3>{nameProvedor}</h3>
+                        {showInfosToEdit &&
+                            <div>
+                                <input type="text" onChange={handleChangeInputEditNameProvedor} />
+                                <button onClick={editProvedor}>Confirmar</button>
+                            </div>}
                         <button onClick={() => setEdittingProvedor(false)}>Fechar</button>
+                    </div>}
+
+                    {/* Excluding Provedor */}
+                    {excludingProvedor && <div className="excludingProvedorForm">
+                        <h2>Excluir Provedor</h2>
+                        <label>ID:
+                            <input type="number" className="inputNumberIDExcludeProvedor"  onChange={handleChangeInputIDForEditProvedor} onKeyUp={searchOneProvedor} />
+                        </label>
+                        <h3>{nameProvedor}</h3>
+                        <button onClick={excludeProvedor}>Excluir provedor</button>
+                        <button onClick={() => setAddingProvedor(false)}>Fechar</button>
                     </div>}
 
 
