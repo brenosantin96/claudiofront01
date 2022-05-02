@@ -59,6 +59,46 @@ export const api = {
     deleteOneProvedor: async (id: number) => {
         let response = await axios.delete(`${BASE}/provedores/${id}`);
         return response.data;
-    }
+    },
+
+
+    //OBRAS
+
+    getAllObras: async () => {
+
+        let response = await axios.get(`${BASE}/obras`);
+        return response.data.obras;
+
+    },
+
+    createObra: async (name: string, direccion: string, presupuesto?: number, dateStart?: Date) => {
+
+        let response = await axios.post(`${BASE}/obras`, {
+            name, direccion, presupuesto, dateStart
+        });
+        return response.data;
+
+    },
+
+    editObras: async (id: number, name?: string, direccion?: string, presupuesto?: number, dateStart?: Date) => {
+
+        let response = await axios.put(`${BASE}/obras/${id}`, {
+            name, direccion, presupuesto, dateStart
+        });
+        return response.data;
+
+    },
+
+    GetOneObra: async (id: number) => {
+
+        let response = await axios.get(`${BASE}/obras/${id}`);
+        return response.data;
+
+    },
+
+    deleteOneObra: async (id: number) => {
+        let response = await axios.delete(`${BASE}/obras/${id}`);
+        return response.data;
+    },
 
 }

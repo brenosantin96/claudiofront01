@@ -1,9 +1,9 @@
 body {
-    background-color: #030128;
+    background-color: #472121;
 }
 
 .containerNavBar {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     position: fixed;
     height: 60px;
     width: 100%;
@@ -122,6 +122,8 @@ body {
 }
 
 .containerObrasPage {
+    display: flex;
+    justify-content: space-around;
     padding-top: 70px;
     padding-left: 20px;
     font-size: 20px;
@@ -160,6 +162,16 @@ body {
     /* roundness of the scroll thumb */
     border: none
     /* creates padding around scroll thumb */
+}
+
+.linkProvedorItem {
+    text-decoration: none;
+    color: white;
+}
+
+.linkProvedorItem:hover {
+    font-weight: bold;
+    color: white;
 }
 
 .rightSideProvedores {
@@ -229,4 +241,109 @@ body {
     border-radius: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.containerProvedorInfoItemPage {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.tituloProvedorInfoPage {
+    padding-top: 70px;
+    color: white;
+    margin-left: 15px;
+}
+
+.buttonsProvedorInfoItem {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.buttonsProvedorInfoItem button {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.buttonsProvedorInfoItem button:disabled {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.infosProvedorInfoItem {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.infosProvedorInfoItem input:read-only {
+    background-color: white;
+    color: #6f6a6a;
+}
+
+.leftSideObras {
+    width: 40%;
+    height: 600px;
+    overflow-y: scroll;
+}
+
+.leftSideObras::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+.leftSideObras::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0);
+    /* color of the tracking area */
+}
+
+.leftSideObras::-webkit-scrollbar-thumb {
+    background-color: rgb(94, 88, 88);
+    /* color of the scroll thumb */
+    border-radius: 10px;
+    /* roundness of the scroll thumb */
+    border: none
+    /* creates padding around scroll thumb */
+}
+
+.rightSideObras {
+    width: 40%;
+    border: 1 px solid blue;
+    height: 600px;
+}
+
+.newObraForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.newObraForm input {
+    margin-bottom: 10px;
+}
+
+.newObraForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.linkObraItem {
+    text-decoration: none;
+    color: white;
+}
+
+.linkObraItem:hover {
+    font-weight: bold;
+    color: white;
+}
+
+.obraItem {
+    margin: 5px;
+    padding-left: 10px;
+    background-color: rgb(44, 41, 212);
+    border: 2px solid black;
 }

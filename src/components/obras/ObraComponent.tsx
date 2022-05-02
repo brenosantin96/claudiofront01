@@ -6,10 +6,10 @@ type Props = {
     name: string
 }
 
-export const Provedor = ({ id, name }: Props) => {
+export const ObraComponent = ({ id, name }: Props) => {
     return (
-        <Link className="linkProvedorItem" to={`/provedores/${id}`}>
-            <div key={id} className="provedorItem">
+        <Link className="linkObraItem" to={`/obras/${id}`}>
+            <div className="obraItem" key={id}>
                 {name}
             </div>
         </Link>

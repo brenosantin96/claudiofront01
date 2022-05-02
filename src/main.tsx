@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Main } from "./pages/MainPage";
-import { ObrasPage } from './pages/ObrasPage';
+import { ObrasPage } from './pages/Obras/ObrasPage';
 import { FacturasPage } from './pages/FacturasPage';
-import { ProvedoresPage } from './pages/ProvedoresPage';
+import { ProvedoresPage } from './pages/Provedores/ProvedoresPage';
 import {RouteList} from './routes/RouteList'
 
 

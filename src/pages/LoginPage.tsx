@@ -21,13 +21,21 @@ function LoginPage() {
       console.log(juca);
       if (juca.isAdmin === true || juca.isAdmin === '1') {
         let path = `/main`;
-        navigate(path)
+        navigate(path);
+        return;
       }
       if (juca.isAdmin === false || juca.isAdmin === '0') {
-        alert("sem permissao de acesso");
+        alert("Sin permiso de acceso");
+        return;
       }
-    } else {
-      alert("Preencha todos os campos!")
+    }
+    if (email === "" && password === "") {
+      alert("Rellene todos los campos!");
+      return;
+    }
+    else {
+      alert("Nombre de usuario y / o contraseña incorrectos.");
+      return;
     }
   }
 
@@ -50,9 +58,9 @@ function LoginPage() {
         </div>
         <div>
           <form className="loginForm">
-            <input id='emailInput' placeholder='Informe seu email' onChange={emailInputValue} type="text" />
-            <input id='passInput' placeholder='Informe sua senha' onChange={passwordInputValue} type="password" />
-            <Button className="buttonLogin " variant="primary" type='submit' onClick={handleLoginButton}>Entrar</Button>
+            <input id='emailInput' placeholder='Introduce tu correo electronico' onChange={emailInputValue} type="text" />
+            <input id='passInput' placeholder='Introduce tu contraseña' onChange={passwordInputValue} type="password" />
+            <Button className="buttonLogin " variant="primary" type='submit' onClick={handleLoginButton}>Acceso</Button>
           </form>
         </div>
       </div>

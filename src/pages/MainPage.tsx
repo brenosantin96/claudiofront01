@@ -7,7 +7,7 @@ export const Main = () => {
         <>
             <Navbar />
             <div className="containerMain">
-                Olá, eu sou o Main.
+            Página de inicio
             </div>
         </>
 
