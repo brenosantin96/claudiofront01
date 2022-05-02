@@ -347,3 +347,45 @@ body {
     background-color: rgb(44, 41, 212);
     border: 2px solid black;
 }
+
+.tituloObraInfoPage {
+    padding-top: 70px;
+    color: white;
+    margin-left: 15px;
+}
+
+.containerObraInfoItemPage {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttonsObraInfoItem {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.buttonsObraInfoItem button {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.buttonsObraInfoItem button:disabled {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.infosObraInfoItem {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.infosObraInfoItem input:read-only {
+    background-color: white;
+    color: #6f6a6a;
+}
