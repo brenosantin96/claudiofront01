@@ -100,10 +100,6 @@ export const ObraInfoPage = () => {
       let numberYear: number = parseInt(year);
 
       let dateStarted = new Date(numberYear, numberMonth, numberDay, 0, 0, 0);
-      let dateToFormat = new Date(numberYear, numberMonth, numberDay, 0, 0, 0).toJSON();
-      let dateFormatted = dateToFormat.split("T");
-      console.log(dateFormatted[0]);
-      console.log(dateFormatted);
       setDateStartObra(dateStarted);
 
     }
@@ -113,6 +109,26 @@ export const ObraInfoPage = () => {
   //Back function
   const backButton = async () => {
     navigate(-1);
+  }
+
+  //Functions to Edit, Save and Remove.
+
+  const saveButton = async () => {
+    if (obraInfo) {
+      let response = await api.editObras(obraInfo.id, editInputNameObra, editInputDireccionObra, editInputPresupuestoObra, dateStartObra)
+      console.log(response);
+    }
+    setDisabledButtonEdit(!disabledButtonEdit);
+    setDisabledButtonSave(!disabledButtonSave);
+    setreadOnlyBoolean(!readOnlyBoolean);
+  }
+
+  const delButton = async (id: number) => {
+    if (obraInfo) {
+      let response = await api.deleteOneObra(id);
+      console.log(response);
+      backButton();
+    }
   }
 
   return (
@@ -125,7 +141,7 @@ export const ObraInfoPage = () => {
           <div className='buttonsObraInfoItem'>
             <button onClick={startEdditingProvedor} disabled={disabledButtonEdit} >Editar</button>
             <button onClick={showConfirmationExclude}>Eliminar</button>
-            <button onClick={() => console.log("Teste")} disabled={disabledButtonSave}>Guardar</button>
+            <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
             <button onClick={backButton}>Volver</button>
           </div>
         }
@@ -143,6 +159,14 @@ export const ObraInfoPage = () => {
             <label htmlFor="dateStartObra">Fecha inicio:</label>
             <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de inicio" onChange={changeDateObraInput} />
             <br />
+          </div>
+        }
+
+
+        {booleanConfirmationExclude && obraInfo &&
+          <div>
+            <h4 style={{ color: "white" }}>¿Realmente desea eliminar esta obra?</h4>
+            <button onClick={() => delButton(obraInfo.id)} >Eliminar</button>
           </div>
         }
       </div>

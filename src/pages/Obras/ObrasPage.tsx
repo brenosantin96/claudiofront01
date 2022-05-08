@@ -1,8 +1,8 @@
 import { useState, useEffect, ChangeEvent } from 'react'
-import { Navbar } from "../../components/Navbar"
 import '../../index.css'
 import { api } from '../../api';
 import { ObraComponent } from '../../components/obras/ObraComponent';
+import { Navbar2 } from '../../components/Navbar2';
 
 interface obrasInterface {
     id: number;
@@ -119,7 +119,7 @@ export const ObrasPage = () => {
     return (
 
         <>
-            <Navbar />
+            <Navbar2 />
             <div className="containerObrasPage">
                 <div className="leftSideObras">
                     {obrasInfo.map((item) => (<ObraComponent key={item.id} id={item.id} name={item.name}></ObraComponent>))}

@@ -1,8 +1,8 @@
-import { Navbar } from "../../components/Navbar"
 import '../../index.css'
 import { api } from "../../api";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Provedor } from '../../components/provedores/Provedor'
+import { Navbar2 } from "../../components/Navbar2";
 
 interface provedorInterface {
     id: number;
@@ -51,7 +51,7 @@ export const ProvedoresPage = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar2 />
             <div className="containerProvedores">
                 <div className="leftSideProvedores">
                     {provedoresInfo.map((item) => (<Provedor key={item.id} id={item.id} name={item.name}></Provedor>))}

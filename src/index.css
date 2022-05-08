@@ -1,5 +1,5 @@
 body {
-    background-color: #472121;
+    background-color: #2d0141;
 }
 
 .containerNavBar {
@@ -13,12 +13,10 @@ body {
     align-items: center;
 }
 
-.imgLogo {
+q .imgLogo {
     margin-left: 30px;
-    height: 60px;
+    height: 50px;
 }
-
-.navbarLogo {}
 
 .navbarMenu {
     margin-right: 30px;
@@ -41,7 +39,6 @@ body {
 }
 
 .containerFacturasPage {
-    padding-top: 70px;
     padding-left: 20px;
     font-size: 20px;
     color: white;
@@ -115,7 +112,6 @@ body {
 }
 
 .containerMain {
-    padding-top: 70px;
     padding-left: 20px;
     font-size: 20px;
     color: white;
@@ -124,7 +120,6 @@ body {
 .containerObrasPage {
     display: flex;
     justify-content: space-around;
-    padding-top: 70px;
     padding-left: 20px;
     font-size: 20px;
     color: white;
@@ -133,7 +128,6 @@ body {
 .containerProvedores {
     display: flex;
     justify-content: space-around;
-    padding-top: 70px;
     padding-left: 20px;
     font-size: 20px;
     color: white;

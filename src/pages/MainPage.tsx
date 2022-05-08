@@ -1,11 +1,11 @@
 import React from "react";
-import { Navbar } from "../components/Navbar";
+import { Navbar2 } from "../components/Navbar2";
 import '../index.css'
 
 export const Main = () => {
     return (
         <>
-            <Navbar />
+            <Navbar2 />
             <div className="containerMain">
             Página de inicio
             </div>

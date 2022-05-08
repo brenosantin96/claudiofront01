@@ -52,15 +52,15 @@ function LoginPage() {
   return (
 
     <div>
-      <div className="loginContainer">
+      <div className="loginContainer container">
         <div>
           <h1 className="titleH1">Login</h1>
         </div>
         <div>
-          <form className="loginForm">
-            <input id='emailInput' placeholder='Introduce tu correo electronico' onChange={emailInputValue} type="text" />
-            <input id='passInput' placeholder='Introduce tu contraseña' onChange={passwordInputValue} type="password" />
-            <Button className="buttonLogin " variant="primary" type='submit' onClick={handleLoginButton}>Acceso</Button>
+          <form className="loginForm row">
+            <input className='col-12' id='emailInput' placeholder='Introduce tu correo electronico' onChange={emailInputValue} type="text" />
+            <input className='col-12' id='passInput' placeholder='Introduce tu contraseña' onChange={passwordInputValue} type="password" />
+            <Button className="buttonLogin col-12 " variant="primary" type='submit' onClick={handleLoginButton}>Acceso</Button>
           </form>
         </div>
       </div>
