@@ -15,23 +15,23 @@ export const ProvedoresPage = () => {
     const [nameProvedor, setNameProvedor] = useState('');
 
     const [addingProvedor, setAddingProvedor] = useState(false);
-   
- 
 
-    useEffect(() => { getProvedores();  }, [])
+
+
+    useEffect(() => { getProvedores(); }, [])
 
     const getProvedores = async () => {
-       
+
         const data = await api.getAllProvedores();
         setProvedoresInfo(data);
-        
+
     }
 
     const showAddProvedor = () => {
         setAddingProvedor(true);
     }
 
-    
+
 
     const handleChangeInputNameProvedor = (e: ChangeEvent<HTMLInputElement>) => {
         setNameProvedor(e.target.value);
@@ -52,22 +52,24 @@ export const ProvedoresPage = () => {
     return (
         <>
             <Navbar2 />
-            <div className="containerProvedores">
-                <div className="leftSideProvedores">
-                    {provedoresInfo.map((item) => (<Provedor key={item.id} id={item.id} name={item.name}></Provedor>))}
-                </div>
-                <div className="rightSideProvedores">
-                    <button onClick={showAddProvedor}>Nuevo</button>
-                  
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-6 mt-2 leftSideProvedores">
+                        {provedoresInfo.map((item) => (<Provedor key={item.id} id={item.id} name={item.name}></Provedor>))}
+                    </div>
+                    <div className="col-12 col-md-6 mt-2">
+                        <button onClick={showAddProvedor}>Nuevo</button>
 
-                    {/* Add Provedor Form */}
-                    {addingProvedor && <div className="newProvedorForm">
-                    <h2>Agregar un provedor</h2>
-                        <input type="text" placeholder="Introduce el nombre del proveedor" onChange={handleChangeInputNameProvedor} />
-                        <button onClick={addProvedor}>Agregar provedor</button>
-                        <button onClick={() => setAddingProvedor(false)}>Cierrar</button>
-                    </div>}
 
+                        {/* Add Provedor Form */}
+                        {addingProvedor && <div className="newProvedorForm">
+                            <h2>Agregar un provedor</h2>
+                            <input type="text" placeholder="Introduce el nombre del proveedor" onChange={handleChangeInputNameProvedor} />
+                            <button onClick={addProvedor}>Agregar provedor</button>
+                            <button onClick={() => setAddingProvedor(false)}>Cierrar</button>
+                        </div>}
+
+                    </div>
                 </div>
             </div>
         </>

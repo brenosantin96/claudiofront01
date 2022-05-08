@@ -120,25 +120,28 @@ export const ObrasPage = () => {
 
         <>
             <Navbar2 />
-            <div className="containerObrasPage">
-                <div className="leftSideObras">
-                    {obrasInfo.map((item) => (<ObraComponent key={item.id} id={item.id} name={item.name}></ObraComponent>))}
-                </div>
-                <div className="rightSideObras">
-                    <button onClick={showAddObras}>Nuevo</button>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 col-md-6 mt-2 leftSideObras">
+                        {obrasInfo.map((item) => (<ObraComponent key={item.id} id={item.id} name={item.name}></ObraComponent>))}
+                    </div>
+
+                    <div className="col-12 col-md-6 mt-2">
+                        <button onClick={showAddObras}>Nuevo</button>
 
 
-                    {/* Add Obra Form */}
-                    {addingObra && <div className="newObraForm">
-                        <h2>Agregar una nueva obra</h2>
-                        <input type="text" placeholder="Introduce el nombre de la obra" value={nameObra} onChange={handleChangeInputNameObra} />
-                        <input type="text" placeholder="Introduce la direccion de la obra" onChange={handleChangeDireccionObra} />
-                        <input type="number" placeholder="Introduce el presupuesto de la obra" onChange={handleChangePresupuestoObra} />
-                        <input type="date" placeholder="Fecha de inicio" onChange={handleChangeDateObra} />
-                        <button onClick={addObra}>Agregar Obra</button>
-                        <button onClick={() => setAddingObra(false)}>Cierrar</button>
-                    </div>}
+                        {/* Add Obra Form */}
+                        {addingObra && <div className="newObraForm">
+                            <h2>Agregar una nueva obra</h2>
+                            <input type="text" placeholder="Introduce el nombre de la obra" value={nameObra} onChange={handleChangeInputNameObra} />
+                            <input type="text" placeholder="Introduce la direccion de la obra" onChange={handleChangeDireccionObra} />
+                            <input type="number" placeholder="Introduce el presupuesto de la obra" onChange={handleChangePresupuestoObra} />
+                            <input type="date" placeholder="Fecha de inicio" onChange={handleChangeDateObra} />
+                            <button onClick={addObra}>Agregar Obra</button>
+                            <button onClick={() => setAddingObra(false)}>Cierrar</button>
+                        </div>}
 
+                    </div>
                 </div>
             </div>
         </>

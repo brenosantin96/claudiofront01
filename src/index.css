@@ -13,7 +13,7 @@ body {
     align-items: center;
 }
 
-q .imgLogo {
+.imgLogo {
     margin-left: 30px;
     height: 50px;
 }
@@ -134,8 +134,8 @@ q .imgLogo {
 }
 
 .leftSideProvedores {
-    width: 40%;
-    height: 600px;
+    /* width: 40%; */
+    height: 400px;
     overflow-y: scroll;
 }
 
@@ -171,7 +171,6 @@ q .imgLogo {
 .rightSideProvedores {
     width: 40%;
     border: 1 px solid blue;
-    height: 600px;
 }
 
 .provedorItem {
@@ -182,9 +181,12 @@ q .imgLogo {
 }
 
 .newProvedorForm {
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.newProvedorForm h2 {
+    color: white;
 }
 
 .newProvedorForm input {
@@ -197,7 +199,6 @@ q .imgLogo {
 }
 
 .editProvedorForm {
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -280,8 +281,7 @@ q .imgLogo {
 }
 
 .leftSideObras {
-    width: 40%;
-    height: 600px;
+    height: 400px;
     overflow-y: scroll;
 }
 
