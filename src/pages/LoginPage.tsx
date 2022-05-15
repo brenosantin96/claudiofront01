@@ -17,14 +17,14 @@ function LoginPage() {
   const handleLoginButton = async (e: FormEvent) => {
     e.preventDefault();
     if (email !== "" && password !== "") {
-      const juca = await api.signIn(email, password)
-      console.log(juca);
-      if (juca.isAdmin === true || juca.isAdmin === '1') {
+      const response = await api.signIn(email, password)
+      console.log(response);
+      if (response.isAdmin === true || response.isAdmin === '1') {
         let path = `/main`;
         navigate(path);
         return;
       }
-      if (juca.isAdmin === false || juca.isAdmin === '0') {
+      if (response.isAdmin === false || response.isAdmin === '0') {
         alert("Sin permiso de acceso");
         return;
       }
