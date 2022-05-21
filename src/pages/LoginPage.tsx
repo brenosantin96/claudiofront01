@@ -12,6 +12,8 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [token, setToken] = useState('');
+
   let navigate = useNavigate();
 
   const handleLoginButton = async (e: FormEvent) => {
@@ -20,6 +22,7 @@ function LoginPage() {
       const response = await api.signIn(email, password)
       console.log(response);
       if (response.isAdmin === true || response.isAdmin === '1') {
+        setToken(response.token);
         let path = `/main`;
         navigate(path);
         return;
