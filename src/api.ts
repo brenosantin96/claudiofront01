@@ -73,6 +73,10 @@ export const api = {
 
     createObra: async (name: string, direccion: string, presupuesto?: number, dateStart?: Date) => {
 
+        if(dateStart){
+            console.log(dateStart);
+        }
+
         let response = await axios.post(`${BASE}/obras`, {
             name, direccion, presupuesto, dateStart
         });
@@ -99,6 +103,15 @@ export const api = {
     deleteOneObra: async (id: number) => {
         let response = await axios.delete(`${BASE}/obras/${id}`);
         return response.data;
+    },
+
+    //FACTURAS
+
+    getFacturas: async () => {
+
+        let response = await axios.get(`${BASE}/facturas`);
+        return response.data.facturas;
+
     },
 
 }

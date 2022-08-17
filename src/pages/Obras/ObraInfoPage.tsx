@@ -3,6 +3,7 @@ import '../../index.css'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../../api'
 import { ChangeEvent, useEffect, useState } from 'react';
+import { Navbar2 } from '../../components/Navbar2';
 
 interface ObraInterface {
   id: number;
@@ -133,7 +134,7 @@ export const ObraInfoPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar2 />
       <h3 className='tituloObraInfoPage'>Datos de la Obra</h3>
       <div className='containerObraInfoItemPage'>
 
