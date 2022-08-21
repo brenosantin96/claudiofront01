@@ -18,6 +18,7 @@ interface facturaInterface {
 interface proveedorInterface {
     id: number;
     name: string;
+    data: Date,
 }
 
 
@@ -50,17 +51,15 @@ export const FacturasPage = () => {
 
     }, [])
 
+
     let getApiFacturas = async () => {
         let response = await api.getFacturas();
-        console.log(response)
         setFacturas(response);
     }
 
     let getProveedores = async () => {
         let response = await api.getAllProvedores();
-        console.log(response);
-        //NAO TO CONSEGUINDO FAZER O STATE PROVEEDORES SER POPULADO...
-
+        setProveedores(response);
     }
 
     //HandleInputs
@@ -86,8 +85,10 @@ export const FacturasPage = () => {
             let dateStarted = new Date(numberYear, numberMonth, numberDay, 0, 0, 0);
             let dateToFormat = new Date(numberYear, numberMonth, numberDay, 0, 0, 0).toJSON();
             let dateFormatted = dateToFormat.split("T");
-            console.log(dateFormatted[0]);
-            console.log(dateFormatted);
+
+            console.log("Facturas: ", facturas)
+            console.log("Proveedores: ",proveedores)
+
             setDateFactura(dateStarted);
 
         }
@@ -129,9 +130,11 @@ export const FacturasPage = () => {
                             <div className="newObraForm">
                                 <h2 style={{ color: 'white' }}>Agregar factura</h2>
                                 <input type="number" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
-                                <FormSelect>
-
-                                </FormSelect>
+                                <select name="proveedores" id="">
+                                    <option> sdad </option>
+                                    <option> adad </option>
+                                    <option> sssd </option>
+                                </select>
                                 <input type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
                                 <input type="text" placeholder="Quien has comprado la factura" onChange={e => setDriver(e.target.value)} />
                                 <input type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
