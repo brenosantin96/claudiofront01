@@ -31,7 +31,6 @@ export const ObrasPage = () => {
 
         const data = await api.getAllObras();
         if (data) {
-            console.log(data);
             setObrasInfo(data);
         }
 

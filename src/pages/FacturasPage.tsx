@@ -39,6 +39,8 @@ export const FacturasPage = () => {
 
     //To start adding factura:
     const showAddFacturas = () => {
+        console.log("Cliquei no botao e dei um console log para ver se a informacao de facturas foi trazida:", facturas)
+        console.log("Cliquei no botao e dei um console log para ver se a informacao de proveedores foi trazida:", proveedores)
         setAddingFactura(true);
     }
 
@@ -53,13 +55,23 @@ export const FacturasPage = () => {
 
 
     let getApiFacturas = async () => {
-        let response = await api.getFacturas();
-        setFacturas(response);
+        let response = await api.getFacturas()
+        .then((response)=> {
+            setFacturas(response);
+        })
+        .then(()=> {
+            console.log("Listnado faturas: ", facturas)
+        })
     }
 
     let getProveedores = async () => {
-        let response = await api.getAllProvedores();
-        setProveedores(response);
+        let response = await api.getAllProvedores()
+        .then((response)=> {
+            setProveedores(response);
+        })
+        .then(()=> {
+            console.log("Listnado provedores: ", proveedores)
+        })
     }
 
     //HandleInputs
