@@ -21,6 +21,24 @@ interface proveedorInterface {
     data: Date,
 }
 
+interface obrasInterface {
+    id: number;
+    name: string;
+    direccion?: string;
+    presupuesto?: number;
+    dateStart?: Date;
+}
+
+type OptionTypeObra = {
+    value: string;
+    idobra: number;
+};
+
+type OptionTypeProveedor = {
+    value: string;
+    idobra: number;
+};
+
 
 export const FacturasPage = () => {
 
@@ -29,7 +47,11 @@ export const FacturasPage = () => {
 
     //Getting Foreing Keys.
     const [proveedores, setProveedores] = useState<proveedorInterface[]>([])
-    const [options, setOptions] = useState<proveedorInterface[]>([]);
+    const [obras, setObras] = useState<obrasInterface[]>([])
+
+    //Selecteds
+    const [proveedorSelected, setProveedorSelected] = useState<proveedorInterface>();
+    const [obraSelected, setObraSelected] = useState<obrasInterface>();
 
     //Booleans 
     const [numberFactura, setNumberFactura] = useState(0);
@@ -50,28 +72,39 @@ export const FacturasPage = () => {
     useEffect(() => {
         getApiFacturas();
         getProveedores();
+        getObras();
 
     }, [])
 
 
     let getApiFacturas = async () => {
         let response = await api.getFacturas()
-        .then((response)=> {
-            setFacturas(response);
-        })
-        .then(()=> {
-            console.log("Listnado faturas: ", facturas)
-        })
+            .then((response) => {
+                setFacturas(response);
+            })
+            .then(() => {
+                console.log("Listnado faturas: ", facturas)
+            })
+    }
+
+    let getObras = async () => {
+        let response = await api.getAllObras()
+            .then((response) => {
+                setObras(response);
+            })
+            .then(() => {
+                console.log("Listando obras: ", obras)
+            })
     }
 
     let getProveedores = async () => {
         let response = await api.getAllProvedores()
-        .then((response)=> {
-            setProveedores(response);
-        })
-        .then(()=> {
-            console.log("Listnado provedores: ", proveedores)
-        })
+            .then((response) => {
+                setProveedores(response);
+            })
+            .then(() => {
+                console.log("Listnado provedores: ", proveedores)
+            })
     }
 
     //HandleInputs
@@ -99,11 +132,20 @@ export const FacturasPage = () => {
             let dateFormatted = dateToFormat.split("T");
 
             console.log("Facturas: ", facturas)
-            console.log("Proveedores: ",proveedores)
+            console.log("Proveedores: ", proveedores)
 
             setDateFactura(dateStarted);
 
         }
+
+    }
+
+    const handleChangeObra = (e: React.ChangeEvent<HTMLSelectElement>) => {
+       // setObraSelected(e.target);
+    }
+
+    const handleChangeProveedor = (e: ChangeEvent<HTMLDataElement>) => {
+
 
     }
 
@@ -114,7 +156,8 @@ export const FacturasPage = () => {
             numero: numberFactura,
             data: dateFactura,
             precioBase: priceFacturaBase,
-            comprador: driver
+            comprador: driver,
+            obra: obraSelected
         }
 
         console.log(data);
@@ -143,13 +186,18 @@ export const FacturasPage = () => {
                                 <h2 style={{ color: 'white' }}>Agregar factura</h2>
                                 <input type="number" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
                                 <select name="proveedores" id="">
-                                    <option> sdad </option>
-                                    <option> adad </option>
-                                    <option> sssd </option>
+                                    {proveedores &&
+                                        proveedores.map((item) => (<option key={item.id} value={item.name}>{item.name}</option>))
+                                    }
                                 </select>
                                 <input type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
                                 <input type="text" placeholder="Quien has comprado la factura" onChange={e => setDriver(e.target.value)} />
                                 <input type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
+                                <select name="obras" id="" onChange={handleChangeObra}>
+                                    {obras &&
+                                        obras.map((item) => { return (<option key={item.id} value={item.name} defaultValue="Seleccione una obra">{item.name}</option>) })
+                                    }
+                                </select>
                                 <button onClick={addFactura}>Agregar Factura</button>
                                 <button onClick={() => setAddingFactura(false)}>Cierrar</button>
                             </div>}
