@@ -37,7 +37,7 @@ export const ObraInfoPage = () => {
     getObraInfo();
   }, []);
 
-
+//
   const getObraInfo = async () => {
     if (params.id) {
       let response = await api.GetOneObra(parseInt(params.id));
