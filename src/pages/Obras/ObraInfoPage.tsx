@@ -34,11 +34,11 @@ export const ObraInfoPage = () => {
   const [dateStartObra, setDateStartObra] = useState(new Date());
 
   useEffect(() => {
-    getProvedorInfo();
+    getObraInfo();
   }, []);
 
 
-  const getProvedorInfo = async () => {
+  const getObraInfo = async () => {
     if (params.id) {
       let response = await api.GetOneObra(parseInt(params.id));
       if (response) {

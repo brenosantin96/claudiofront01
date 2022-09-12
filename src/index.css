@@ -325,6 +325,10 @@ body {
     border-radius: 5px;
 }
 
+.newObraForm h2 {
+    color: white;
+}
+
 .linkObraItem {
     text-decoration: none;
     color: white;

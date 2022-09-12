@@ -3,6 +3,7 @@ import styles from "./FacturasPage.module.css"
 import '../index.css'
 import { Navbar2 } from '../components/Navbar2'
 import { ChangeEvent, useEffect, useState } from "react";
+import Select from 'react-select';
 import { api } from '../api'
 import { FacturaComponent } from "../components/facturas/FacturaComponent";
 import { FormSelect } from "react-bootstrap";
@@ -29,16 +30,6 @@ interface obrasInterface {
     dateStart?: Date;
 }
 
-type OptionTypeObra = {
-    value: string;
-    idobra: number;
-};
-
-type OptionTypeProveedor = {
-    value: string;
-    idobra: number;
-};
-
 
 export const FacturasPage = () => {
 
@@ -48,6 +39,7 @@ export const FacturasPage = () => {
     //Getting Foreing Keys.
     const [proveedores, setProveedores] = useState<proveedorInterface[]>([])
     const [obras, setObras] = useState<obrasInterface[]>([])
+    let teste : any = [];
 
     //Selecteds
     const [proveedorSelected, setProveedorSelected] = useState<proveedorInterface>();
@@ -63,6 +55,12 @@ export const FacturasPage = () => {
     const showAddFacturas = () => {
         console.log("Cliquei no botao e dei um console log para ver se a informacao de facturas foi trazida:", facturas)
         console.log("Cliquei no botao e dei um console log para ver se a informacao de proveedores foi trazida:", proveedores)
+        console.log("exibindo array no showAddFacturas", teste)
+        proveedores.map((item)=> {
+            let newObj = {...item, value: item.name, label: item.name};
+            teste.push(newObj);
+            console.log(teste)
+        })
         setAddingFactura(true);
     }
 
@@ -104,6 +102,14 @@ export const FacturasPage = () => {
             })
             .then(() => {
                 console.log("Listnado provedores: ", proveedores)
+            })
+            .then(()=> {
+                proveedores.map((i)=> {
+                    let newobj = {...i, value: i.name, label: i.name };
+                    teste.push(newobj);
+                })
+            }).then(()=> {
+                console.log("Exibindo array: ", teste)
             })
     }
 
@@ -185,19 +191,10 @@ export const FacturasPage = () => {
                             <div className="newObraForm">
                                 <h2 style={{ color: 'white' }}>Agregar factura</h2>
                                 <input type="number" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
-                                <select name="proveedores" id="">
-                                    {proveedores &&
-                                        proveedores.map((item) => (<option key={item.id} value={item.name}>{item.name}</option>))
-                                    }
-                                </select>
+                                <Select options={proveedores} />
                                 <input type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
                                 <input type="text" placeholder="Quien has comprado la factura" onChange={e => setDriver(e.target.value)} />
                                 <input type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
-                                <select name="obras" id="" onChange={handleChangeObra}>
-                                    {obras &&
-                                        obras.map((item) => { return (<option key={item.id} value={item.name} defaultValue="Seleccione una obra">{item.name}</option>) })
-                                    }
-                                </select>
                                 <button onClick={addFactura}>Agregar Factura</button>
                                 <button onClick={() => setAddingFactura(false)}>Cierrar</button>
                             </div>}
@@ -211,7 +208,9 @@ export const FacturasPage = () => {
 }
 
 //{facturas.map((item => (<li>{`${item.number} - ${item.dateFactura} = ${item.valor}$`}</li>)))}
-
+/* {proveedores &&
+    proveedores.map((item) => (<option key={item.id} value={item.name}>{item.name}</option>))
+} */
 /* {facturas &&
                    
     <ul>
