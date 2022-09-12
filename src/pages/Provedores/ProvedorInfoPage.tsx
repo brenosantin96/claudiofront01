@@ -16,7 +16,7 @@ interface provedorInterface {
 }
 
 
-export const ProvedorInfoPage = ({ id, name }: Props) => {
+export const ProvedorInfoPage = () => {
 
     const params = useParams();
     const navigate = useNavigate();
