@@ -15,6 +15,7 @@ app.use(corsz);
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(resolve(__dirname, './dist')));
 }
+//s
 
 
 app.listen(port || 3000, (err) => {
