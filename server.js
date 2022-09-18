@@ -2,12 +2,22 @@ const express = require('express');
 const dot = require('dotenv');
 const path = require('path')
 const app = express();
+const corsz = require('cors');
+const { resolve } = require('path');
+
 dot.config();
 
 
-app.use(express.static(path.join(__dirname, '../dist/assets')));
+const port = process.env.PORT;
 
-app.listen(process.env.PORT || 3000, (err) => {
+app.use(corsz);
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(resolve(__dirname, './dist')));
+}
+
+
+app.listen(port || 3000, (err) => {
     if (err) {
         console.log("ERRO: ", err)
     } else {
