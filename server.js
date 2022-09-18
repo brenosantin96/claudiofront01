@@ -5,7 +5,7 @@ const app = express();
 dot.config();
 
 
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../dist/assets')));
 
 app.listen(process.env.PORT || 3000, (err) => {
     if (err) {
