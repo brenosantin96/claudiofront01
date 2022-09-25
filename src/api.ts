@@ -1,5 +1,9 @@
 import axios from 'axios';
-const BASE = 'http://localhost:4000';
+import env from 'dotenv';
+
+env.config();
+
+const BASE = process.env.BASE || 'https://claudioback01.herokuapp.com/'
 
 
 export const api = {

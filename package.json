@@ -22,6 +22,7 @@
     },
     "devDependencies": {
         "@types/bootstrap": "^5.1.10",
+        "@types/node": "^18.7.20",
         "@types/react": "^18.0.0",
         "@types/react-dom": "^18.0.0",
         "@types/styled-components": "^5.1.25",
