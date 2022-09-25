@@ -3,7 +3,7 @@ import env from 'dotenv';
 
 env.config();
 
-const BASE = process.env.REACT_APP_API_URL || 'https://claudioback01.herokuapp.com/'
+const BASE = process.env.VITE_BASEAPI || 'https://claudioback01.herokuapp.com/'
 
 
 export const api = {
