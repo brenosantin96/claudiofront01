@@ -3,26 +3,28 @@ import env from 'dotenv';
 
 env.config();
 
-const BASE = process.env.VITE_BASEAPI || 'https://claudioback01.herokuapp.com/'
+const api_configs = {
+    BASE: import.meta.env.VITE_BASEAPI || 'https://claudioback01.herokuapp.com/',
+  }
 
 
 export const api = {
 
     getPing: async () => {
 
-        let response = await axios.get(`${BASE}/ping`);
+        let response = await axios.get(`${api_configs.BASE}/ping`);
         return response.data;
     },
 
     getAllUsers: async () => {
 
-        let response = await axios.get(`${BASE}/users`);
+        let response = await axios.get(`${api_configs.BASE}/users`);
         return response.data;
     },
 
     signIn: async (email: string, password: string) => {
 
-        let response = await axios.post(`${BASE}/login`, {
+        let response = await axios.post(`${api_configs.BASE}/login`, {
             email, password
         });
         return response.data;
@@ -30,14 +32,14 @@ export const api = {
 
     getAllProvedores: async () => {
 
-        let response = await axios.get(`${BASE}/provedores`);
+        let response = await axios.get(`${api_configs.BASE}/provedores`);
         return response.data.provedores;
 
     },
 
     createProvedor: async (name: string) => {
 
-        let response = await axios.post(`${BASE}/provedores`, {
+        let response = await axios.post(`${api_configs.BASE}/provedores`, {
             name
         });
         return response.data;
@@ -46,7 +48,7 @@ export const api = {
 
     editProvedor: async (id: number, name?: string) => {
 
-        let response = await axios.put(`${BASE}/provedores/${id}`, {
+        let response = await axios.put(`${api_configs.BASE}/provedores/${id}`, {
             name
         });
         return response.data;
@@ -55,13 +57,13 @@ export const api = {
 
     GetOneProvedor: async (id: number) => {
 
-        let response = await axios.get(`${BASE}/provedores/${id}`);
+        let response = await axios.get(`${api_configs.BASE}/provedores/${id}`);
         return response.data;
 
     },
 
     deleteOneProvedor: async (id: number) => {
-        let response = await axios.delete(`${BASE}/provedores/${id}`);
+        let response = await axios.delete(`${api_configs.BASE}/provedores/${id}`);
         return response.data;
     },
 
@@ -70,7 +72,7 @@ export const api = {
 
     getAllObras: async () => {
 
-        let response = await axios.get(`${BASE}/obras`);
+        let response = await axios.get(`${api_configs.BASE}/obras`);
         return response.data.obras;
 
     },
@@ -81,7 +83,7 @@ export const api = {
             console.log(dateStart);
         }
 
-        let response = await axios.post(`${BASE}/obras`, {
+        let response = await axios.post(`${api_configs.BASE}/obras`, {
             name, direccion, presupuesto, dateStart
         });
         return response.data;
@@ -90,7 +92,7 @@ export const api = {
 
     editObras: async (id: number, name?: string, direccion?: string, presupuesto?: number, dateStart?: Date) => {
 
-        let response = await axios.put(`${BASE}/obras/${id}`, {
+        let response = await axios.put(`${api_configs.BASE}/obras/${id}`, {
             name, direccion, presupuesto, dateStart
         });
         return response.data;
@@ -99,13 +101,13 @@ export const api = {
 
     GetOneObra: async (id: number) => {
 
-        let response = await axios.get(`${BASE}/obras/${id}`);
+        let response = await axios.get(`${api_configs.BASE}/obras/${id}`);
         return response.data;
 
     },
 
     deleteOneObra: async (id: number) => {
-        let response = await axios.delete(`${BASE}/obras/${id}`);
+        let response = await axios.delete(`${api_configs.BASE}/obras/${id}`);
         return response.data;
     },
 
@@ -113,7 +115,7 @@ export const api = {
 
     getFacturas: async () => {
 
-        let response = await axios.get(`${BASE}/facturas`);
+        let response = await axios.get(`${api_configs.BASE}/facturas`);
         return response.data.facturas;
 
     },
