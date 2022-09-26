@@ -6,7 +6,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Select from 'react-select';
 import { api } from '../api'
 import { FacturaComponent } from "../components/facturas/FacturaComponent";
-import { FormSelect } from "react-bootstrap";
+import { FormSelect, NavItem } from "react-bootstrap";
 
 interface facturaInterface {
     id: number;
@@ -20,6 +20,8 @@ interface proveedorInterface {
     id: number;
     name: string;
     data: Date,
+    label?: string,
+    value?: string
 }
 
 interface obrasInterface {
@@ -33,13 +35,15 @@ interface obrasInterface {
 
 export const FacturasPage = () => {
 
+
     //To List Facturas
     const [facturas, setFacturas] = useState<facturaInterface[]>([])
 
     //Getting Foreing Keys.
     const [proveedores, setProveedores] = useState<proveedorInterface[]>([])
     const [obras, setObras] = useState<obrasInterface[]>([])
-    let teste : any = [];
+    const [options, setOptions] = useState([]);
+
 
     //Selecteds
     const [proveedorSelected, setProveedorSelected] = useState<proveedorInterface>();
@@ -51,17 +55,14 @@ export const FacturasPage = () => {
     const [addingFactura, setAddingFactura] = useState(false)
     const [priceFacturaBase, setPriceFacturaBase] = useState(0);
 
+
     //To start adding factura:
     const showAddFacturas = () => {
-        console.log("Cliquei no botao e dei um console log para ver se a informacao de facturas foi trazida:", facturas)
-        console.log("Cliquei no botao e dei um console log para ver se a informacao de proveedores foi trazida:", proveedores)
-        console.log("exibindo array no showAddFacturas", teste)
-        proveedores.map((item)=> {
-            let newObj = {...item, value: item.name, label: item.name};
-            teste.push(newObj);
-            console.log(teste)
-        })
         setAddingFactura(true);
+        let options = proveedores.map(obj => ({ ...obj, value: obj.name, label: obj.name }));
+        setProveedores(options)
+        console.log(options)
+
     }
 
     //Variables of Factura
@@ -76,41 +77,27 @@ export const FacturasPage = () => {
 
 
     let getApiFacturas = async () => {
-        let response = await api.getFacturas()
+        await api.getFacturas()
             .then((response) => {
                 setFacturas(response);
-            })
-            .then(() => {
-                console.log("Listnado faturas: ", facturas)
             })
     }
 
     let getObras = async () => {
-        let response = await api.getAllObras()
+        await api.getAllObras()
             .then((response) => {
                 setObras(response);
             })
             .then(() => {
-                console.log("Listando obras: ", obras)
+
             })
     }
 
     let getProveedores = async () => {
-        let response = await api.getAllProvedores()
+       return await api.getAllProvedores()
             .then((response) => {
                 setProveedores(response);
-            })
-            .then(() => {
-                console.log("Listnado provedores: ", proveedores)
-            })
-            .then(()=> {
-                proveedores.map((i)=> {
-                    let newobj = {...i, value: i.name, label: i.name };
-                    teste.push(newobj);
-                })
-            }).then(()=> {
-                console.log("Exibindo array: ", teste)
-            })
+            }).then((item)=> console.log(item) )
     }
 
     //HandleInputs
@@ -137,8 +124,7 @@ export const FacturasPage = () => {
             let dateToFormat = new Date(numberYear, numberMonth, numberDay, 0, 0, 0).toJSON();
             let dateFormatted = dateToFormat.split("T");
 
-            console.log("Facturas: ", facturas)
-            console.log("Proveedores: ", proveedores)
+
 
             setDateFactura(dateStarted);
 
@@ -147,7 +133,7 @@ export const FacturasPage = () => {
     }
 
     const handleChangeObra = (e: React.ChangeEvent<HTMLSelectElement>) => {
-       // setObraSelected(e.target);
+        // setObraSelected(e.target);
     }
 
     const handleChangeProveedor = (e: ChangeEvent<HTMLDataElement>) => {
@@ -166,7 +152,7 @@ export const FacturasPage = () => {
             obra: obraSelected
         }
 
-        console.log(data);
+
     }
 
 
