@@ -1,6 +1,6 @@
 import React from "react"
 import '../index.css';
-import logoIMG from "../../assets/logoClaudioPNG.png";
+import logoIMG from "../../assets/logo.png";
 import { NavLink } from "react-router-dom";
 
 export const Navbar2 = () => {
@@ -8,7 +8,7 @@ export const Navbar2 = () => {
         <nav className="navbar navbar-expand-lg navbar-light bg-light h-25">
             <div className="container-fluid d-flex">
                 <div className="logo">
-                    <NavLink className="navbar-brand linksnavbarMenu" to="/main">
+                    <NavLink className="navbar-brand" to="/main">
                         <img className="imgLogo" src={logoIMG} alt="" />
                     </NavLink>
                 </div>
@@ -27,7 +27,7 @@ export const Navbar2 = () => {
                             <NavLink className="linksnavbarMenu" to="/facturas">Facturas</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="linksnavbarMenu" to="/provedores">Provedores</NavLink>
+                            <NavLink className="linksnavbarMenu" to="/provedores">Proveedores</NavLink>
                         </li>
                     </ul>
                 </div>

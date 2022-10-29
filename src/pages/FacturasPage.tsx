@@ -30,7 +30,18 @@ interface obrasInterface {
     direccion?: string;
     presupuesto?: number;
     dateStart?: Date;
+    label?: string,
+    value?: string
 }
+
+interface conductorInterface {
+    id: number;
+    name: string;
+    active: boolean;
+    label?: string,
+    value?: string
+}
+
 
 
 export const FacturasPage = () => {
@@ -42,16 +53,16 @@ export const FacturasPage = () => {
     //Getting Foreing Keys.
     const [proveedores, setProveedores] = useState<proveedorInterface[]>([])
     const [obras, setObras] = useState<obrasInterface[]>([])
-    const [options, setOptions] = useState([]);
+    const [conductores, setConductores] = useState<conductorInterface[]>([]);
 
 
     //Selecteds
     const [proveedorSelected, setProveedorSelected] = useState<proveedorInterface>();
     const [obraSelected, setObraSelected] = useState<obrasInterface>();
+    const [conductorSelected, setConductorSelected] = useState<obrasInterface>();
 
     //Booleans 
     const [numberFactura, setNumberFactura] = useState(0);
-    const [driver, setDriver] = useState('');
     const [addingFactura, setAddingFactura] = useState(false)
     const [priceFacturaBase, setPriceFacturaBase] = useState(0);
 
@@ -59,9 +70,13 @@ export const FacturasPage = () => {
     //To start adding factura:
     const showAddFacturas = () => {
         setAddingFactura(true);
-        let options = proveedores.map(obj => ({ ...obj, value: obj.name, label: obj.name }));
-        setProveedores(options)
-        console.log(options)
+        //ao clicar para adicionar fatura, faz um map em proveedores adicionando value e label para exibir no select.
+        let optionsProveedores = proveedores.map(obj => ({ ...obj, value: obj.id.toString(), label: obj.name }));
+        let optionsObras = obras.map(obj => ({ ...obj, value: obj.id.toString(), label: obj.name }));
+        let optionsConductores = conductores.map(obj => ({ ...obj, value: obj.id.toString(), label: obj.name }));
+        setProveedores(optionsProveedores);
+        setConductores(optionsConductores);
+        setObras(optionsObras);
 
     }
 
@@ -71,6 +86,7 @@ export const FacturasPage = () => {
     useEffect(() => {
         getApiFacturas();
         getProveedores();
+        getConductores();
         getObras();
 
     }, [])
@@ -94,10 +110,17 @@ export const FacturasPage = () => {
     }
 
     let getProveedores = async () => {
-       return await api.getAllProvedores()
+        return await api.getAllProvedores()
             .then((response) => {
                 setProveedores(response);
-            }).then((item)=> console.log(item) )
+            }).then(() => { })
+    }
+
+    let getConductores = async () => {
+        return await api.getAllConductores()
+            .then((response) => {
+                setConductores(response);
+            }).then(() => { })
     }
 
     //HandleInputs
@@ -132,26 +155,62 @@ export const FacturasPage = () => {
 
     }
 
-    const handleChangeObra = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // setObraSelected(e.target);
-    }
+    const HandleSelectedObra = (obj: any) => {
+        setObraSelected(obj);
+        console.log(obj);
+    };
 
-    const handleChangeProveedor = (e: ChangeEvent<HTMLDataElement>) => {
+    //Handle Selected Proveedor
+    const HandleSelectedProveedor = (obj: any) => {
+        setProveedorSelected(obj);
+        console.log(obj);
+    };
 
+    //Handle Selected Conductor
+    const HandleSelectedConductor = (obj: any) => {
+        setConductorSelected(obj);
+        console.log(obj);
+    };
 
-    }
 
     //Adding factura
 
     const addFactura = async () => {
-        const data = {
-            numero: numberFactura,
-            data: dateFactura,
-            precioBase: priceFacturaBase,
-            comprador: driver,
-            obra: obraSelected
-        }
 
+
+        if (proveedorSelected === undefined || obraSelected === undefined) {
+            alert("Proveedor y obra deben ser seleccionados")
+        } else {
+            const data = {
+                numero: numberFactura,
+                data: dateFactura,
+                precioBase: priceFacturaBase,
+                comprador: conductorSelected,
+                obra: obraSelected,
+                proveedor: proveedorSelected
+            }
+
+            console.log(data);
+
+        }
+    }
+
+    const createFactura = async () => {
+
+        if (conductorSelected && obraSelected && proveedorSelected) {
+            /* const showData = {
+                numberFactura: numberFactura.toString(),
+                dateFactura: dateFactura,
+                priceFacturaBase,
+                conductorSelectedID : conductorSelected.id,
+                obraSelectedID: obraSelected.id,
+                proveedorSelectedID: proveedorSelected.id
+            } */
+            const data = await api.createFacturas(numberFactura, dateFactura, priceFacturaBase, conductorSelected.id, obraSelected.id, proveedorSelected.id);
+            console.log(data);
+        } 
+
+        getApiFacturas();
 
     }
 
@@ -177,11 +236,12 @@ export const FacturasPage = () => {
                             <div className="newObraForm">
                                 <h2 style={{ color: 'white' }}>Agregar factura</h2>
                                 <input type="number" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
-                                <Select options={proveedores} />
+                                <Select placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
+                                <Select placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
                                 <input type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
-                                <input type="text" placeholder="Quien has comprado la factura" onChange={e => setDriver(e.target.value)} />
+                                <Select placeholder="Conductor" options={conductores} onChange={HandleSelectedConductor} />
                                 <input type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
-                                <button onClick={addFactura}>Agregar Factura</button>
+                                <button onClick={createFactura}>Agregar Factura</button>
                                 <button onClick={() => setAddingFactura(false)}>Cierrar</button>
                             </div>}
 

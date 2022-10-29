@@ -75,7 +75,7 @@ export const api = {
 
     createObra: async (name: string, direccion: string, presupuesto?: number, dateStart?: Date) => {
 
-        if(dateStart){
+        if (dateStart) {
             console.log(dateStart);
         }
 
@@ -107,12 +107,30 @@ export const api = {
         return response.data;
     },
 
+    //CONDUCTORES
+
+    getAllConductores: async () => {
+
+        let response = await axios.get(`${BASE}/conductores`);
+        return response.data.conductores;
+
+    },
+
     //FACTURAS
 
     getFacturas: async () => {
 
         let response = await axios.get(`${BASE}/facturas`);
         return response.data.facturas;
+
+    },
+
+    createFacturas: async (number: number, dateFactura: Date, valor: number, ProvedorId: number, ObraId: number, ConductorId: number) => {
+
+        let response = await axios.post(`${BASE}/facturas`, {
+            number, dateFactura, valor, ProvedorId, ObraId, ConductorId
+        });
+        return response.data;
 
     },
 
