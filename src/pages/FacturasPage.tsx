@@ -198,19 +198,17 @@ export const FacturasPage = () => {
     const createFactura = async () => {
 
         if (conductorSelected && obraSelected && proveedorSelected) {
-            /* const showData = {
-                numberFactura: numberFactura.toString(),
-                dateFactura: dateFactura,
-                priceFacturaBase,
-                conductorSelectedID : conductorSelected.id,
-                obraSelectedID: obraSelected.id,
-                proveedorSelectedID: proveedorSelected.id
-            } */
-            const data = await api.createFacturas(numberFactura, dateFactura, priceFacturaBase, conductorSelected.id, obraSelected.id, proveedorSelected.id);
-            console.log(data);
-        } 
 
+            const data = await api.createFacturas(numberFactura as any, dateFactura, priceFacturaBase, conductorSelected.id, obraSelected.id, proveedorSelected.id);
+
+            if (data.msg === "Factura agregada com sucesso") {
+                setAddingFactura(false);
+                setNumberFactura(0);
+                setPriceFacturaBase(0);
+            }
+        }
         getApiFacturas();
+
 
     }
 
