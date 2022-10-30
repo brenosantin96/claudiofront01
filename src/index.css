@@ -2,6 +2,11 @@ body {
     background-color: #CCC;
 }
 
+* {
+    box-sizing: border-box;
+    font-family: 'Arimo', sans-serif;
+}
+
 .containerNavBar {
     background-color: rgb(255, 255, 255);
     position: fixed;
@@ -22,31 +27,32 @@ body {
     margin-right: 30px;
 }
 
+.navbarItem {
+    height: 65px;
+}
+
 .linksnavbarMenu {
     padding: 10px;
     font-size: 20px;
-    color: black;
+    color: #3d3b3b;
     text-decoration: none;
 }
 
 .linksnavbarMenu:hover {
-    background-color: rgb(16, 16, 50);
-    border-radius: 10px;
-    color: white;
+    color: #3d3b3b;
+    border-bottom: 2px solid #3d3b3b;
     text-decoration: none;
     padding: 5px;
 }
 
-.containerFacturasPage {
-    padding-left: 20px;
+.leftAreaFacturasPage {
     font-size: 20px;
     color: white;
+    height: 400px;
+    overflow-y: auto;
 }
 
-* {
-    box-sizing: border-box;
-    font-family: 'Arimo', sans-serif;
-}
+.rightAreaFacturasPage {}
 
 .buttonLogin {
     background-color: #fefe;
@@ -115,7 +121,7 @@ body {
 .containerMain {
     padding-left: 20px;
     font-size: 20px;
-    color: white;
+    color: #3d3b3b;
 }
 
 .containerObrasPage {
@@ -123,7 +129,7 @@ body {
     justify-content: space-around;
     padding-left: 20px;
     font-size: 20px;
-    color: white;
+    color: 3d3b3b;
 }
 
 .containerProvedores {
@@ -131,32 +137,13 @@ body {
     justify-content: space-around;
     padding-left: 20px;
     font-size: 20px;
-    color: white;
+    color: 3d3b3b;
 }
 
 .leftSideProvedores {
     /* width: 40%; */
     height: 400px;
-    overflow-y: scroll;
-}
-
-.leftSideProvedores::-webkit-scrollbar {
-    width: 12px;
-    /* width of the entire scrollbar */
-}
-
-.leftSideProvedores::-webkit-scrollbar-track {
-    background: rgb(0, 0, 0);
-    /* color of the tracking area */
-}
-
-.leftSideProvedores::-webkit-scrollbar-thumb {
-    background-color: rgb(94, 88, 88);
-    /* color of the scroll thumb */
-    border-radius: 10px;
-    /* roundness of the scroll thumb */
-    border: none
-    /* creates padding around scroll thumb */
+    overflow-y: auto;
 }
 
 .linkProvedorItem {
@@ -169,16 +156,14 @@ body {
     color: white;
 }
 
-.rightSideProvedores {
-    width: 40%;
-    border: 1 px solid blue;
-}
+.rightSideProvedores {}
 
 .provedorItem {
     margin: 5px;
     padding-left: 10px;
-    background-color: rgb(44, 41, 212);
-    border: 2px solid black;
+    background-color: #999;
+    border-radius: 10px;
+    border: 1px solid #3d3b3b;
 }
 
 .newProvedorForm {
@@ -283,26 +268,7 @@ body {
 
 .leftSideObras {
     height: 400px;
-    overflow-y: scroll;
-}
-
-.leftSideObras::-webkit-scrollbar {
-    width: 12px;
-    /* width of the entire scrollbar */
-}
-
-.leftSideObras::-webkit-scrollbar-track {
-    background: rgb(0, 0, 0);
-    /* color of the tracking area */
-}
-
-.leftSideObras::-webkit-scrollbar-thumb {
-    background-color: rgb(94, 88, 88);
-    /* color of the scroll thumb */
-    border-radius: 10px;
-    /* roundness of the scroll thumb */
-    border: none
-    /* creates padding around scroll thumb */
+    overflow-y: auto;
 }
 
 .rightSideObras {
@@ -343,8 +309,9 @@ body {
 .obraItem {
     margin: 5px;
     padding-left: 10px;
-    background-color: rgb(44, 41, 212);
-    border: 2px solid black;
+    background-color: #999;
+    border-radius: 10px;
+    border: 1px solid #3d3b3b;
 }
 
 .tituloObraInfoPage {

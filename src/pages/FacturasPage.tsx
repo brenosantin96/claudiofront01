@@ -218,13 +218,11 @@ export const FacturasPage = () => {
             <Navbar2 />
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-6 mt-2 containerFacturasPage">
-                        <ul>
+                    <div className="col-12 col-md-6 mt-2 leftAreaFacturasPage">
                             {facturas.map((item) => (<FacturaComponent key={item.id} id={item.id} numero={item.number} />))}
-                        </ul>
                     </div>
 
-                    <div className="col-12 col-md-6 mt-2">
+                    <div className="col-12 col-md-6 mt-2 rightAreaFacturasPage">
                         <button onClick={showAddFacturas}>Nuevo</button>
 
 

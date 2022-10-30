@@ -57,7 +57,7 @@ export const ProvedoresPage = () => {
                     <div className="col-12 col-md-6 mt-2 leftSideProvedores">
                         {provedoresInfo.map((item) => (<Provedor key={item.id} id={item.id} name={item.name}></Provedor>))}
                     </div>
-                    <div className="col-12 col-md-6 mt-2">
+                    <div className="col-12 col-md-6 mt-2 rightSideProvedores">
                         <button onClick={showAddProvedor}>Nuevo</button>
 
 
