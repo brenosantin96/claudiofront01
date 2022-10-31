@@ -59,7 +59,7 @@ export const FacturasPage = () => {
     //Selecteds
     const [proveedorSelected, setProveedorSelected] = useState<proveedorInterface>();
     const [obraSelected, setObraSelected] = useState<obrasInterface>();
-    const [conductorSelected, setConductorSelected] = useState<obrasInterface>();
+    const [conductorSelected, setConductorSelected] = useState<conductorInterface>();
 
     //Booleans 
     const [numberFactura, setNumberFactura] = useState(0);
@@ -157,19 +157,16 @@ export const FacturasPage = () => {
 
     const HandleSelectedObra = (obj: any) => {
         setObraSelected(obj);
-        console.log(obj);
     };
 
     //Handle Selected Proveedor
     const HandleSelectedProveedor = (obj: any) => {
         setProveedorSelected(obj);
-        console.log(obj);
     };
 
     //Handle Selected Conductor
     const HandleSelectedConductor = (obj: any) => {
         setConductorSelected(obj);
-        console.log(obj);
     };
 
 
@@ -231,12 +228,12 @@ export const FacturasPage = () => {
 
                             <div className="newObraForm">
                                 <h2 style={{ color: 'white' }}>Agregar factura</h2>
-                                <input type="number" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
-                                <Select placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
-                                <Select placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
-                                <input type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
-                                <Select placeholder="Conductor" options={conductores} onChange={HandleSelectedConductor} />
-                                <input type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
+                                <input type="number" className="inputsForm" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
+                                <Select className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
+                                <Select className="inputsForm" placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
+                                <input className="inputsForm" type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
+                                <Select className="inputsForm" placeholder="Condutor" options={conductores} onChange={HandleSelectedConductor} />
+                                <input className="inputsForm" type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
                                 <button onClick={createFactura}>Agregar Factura</button>
                                 <button onClick={() => setAddingFactura(false)}>Cierrar</button>
                             </div>}

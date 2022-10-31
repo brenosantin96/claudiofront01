@@ -106,6 +106,18 @@ body {
     text-align: center;
 }
 
+.inputsForm::placeholder {
+    /* Firefox, Chrome, Opera */
+    padding-left: 0px;
+}
+
+.inputsForm {
+    height: 50px;
+    outline: none;
+    border: 0;
+    border-radius: 10px;
+}
+
 @media (max-width: 468px) {
     .loginForm input {
         width: 300px;

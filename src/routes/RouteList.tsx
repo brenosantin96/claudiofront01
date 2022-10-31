@@ -6,6 +6,7 @@ import { ObraInfoPage } from '../pages/Obras/ObraInfoPage';
 import { FacturasPage } from '../pages/FacturasPage';
 import { ProvedoresPage } from '../pages/Provedores/ProvedoresPage';
 import { ProvedorInfoPage } from '../pages/Provedores/ProvedorInfoPage'
+import { FacturasInfoPage } from '../pages/FacturasInfoPage';
 
 
 export const RouteList = () => {
@@ -16,6 +17,7 @@ export const RouteList = () => {
         { path: '/obras', element: <ObrasPage /> },
         { path: '/obras/:id', element: <ObraInfoPage /> },
         { path: '/facturas', element: <FacturasPage /> },
+        { path: '/facturas/:id', element: <FacturasInfoPage /> },
         { path: '/provedores', element: <ProvedoresPage /> },
         { path: '/provedores/:id', element: <ProvedorInfoPage /> },
     ]);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import env from 'dotenv';
 
-const BASE = "http://localhost:4000"
+const BASE = import.meta.env.VITE_APP_BASEURL as string
 
 
 export const api = {
@@ -125,11 +125,34 @@ export const api = {
 
     },
 
+    getOneFactura: async (id: number) => {
+
+        let response = await axios.get(`${BASE}/facturas/${id}`);
+        return response.data;
+
+    },
+
     createFacturas: async (number: number, dateFactura: Date, valor: number, ProvedorId: number, ObraId: number, ConductorId: number) => {
 
         let response = await axios.post(`${BASE}/facturas`, {
             number, dateFactura, valor, ProvedorId, ObraId, ConductorId
         });
+        return response.data;
+
+    },
+
+    updateFactura: async (id: number, number?: number, dateFactura?: Date, valor?: number, ProvedorId?: number, ObraId?: number, ConductorId?: number) => {
+
+        let response = await axios.put(`${BASE}/facturas/${id}`, {
+            number, dateFactura, valor, ProvedorId, ObraId, ConductorId
+        });
+        return response.data;
+
+    },
+
+    removeFactura: async (id: number) => {
+
+        let response = await axios.delete(`${BASE}/facturas/${id}`);
         return response.data;
 
     },
