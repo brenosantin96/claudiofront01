@@ -9,7 +9,8 @@ dot.config();
 
 console.log("Batata");
 
-const port = require.meta.env.VITE_APP_PORT;
+const port =
+    import.meta.env.VITE_APP_PORT;
 
 app.use(corsz);
 
