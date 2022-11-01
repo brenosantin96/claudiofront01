@@ -9,15 +9,13 @@ dot.config();
 
 console.log("Batata");
 
-const port =
-    import.meta.env.VITE_APP_PORT;
+const port = 3000;
 
 app.use(corsz);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(resolve(__dirname, './dist')));
 }
-
 
 
 app.listen(port || 3000, (err) => {
