@@ -1,11 +1,13 @@
-const express = require('express');
-const dot = require('dotenv');
-const path = require('path')
-const app = express();
-const corsz = require('cors');
-const { resolve } = require('path');
+import express from 'express'
+import dotenv from 'dotenv'
+import path from 'path'
+import corsz from 'cors'
+import { resolve } from 'path'
 
-dot.config();
+dotenv.config();
+
+
+const app = express();
 
 console.log("Batata");
 
