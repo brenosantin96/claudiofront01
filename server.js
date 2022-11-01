@@ -9,7 +9,7 @@ dot.config();
 
 console.log("Batata");
 
-const port = 3000;
+
 
 app.use(corsz);
 
@@ -18,10 +18,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-app.listen(port || 3000, (err) => {
-    if (err) {
-        console.log("ERRO: ", err)
-    } else {
-        console.log("Tudo funcionando.")
-    }
-})
+app.listen(
+    import.meta.env.VITE_APP_PORT || 3000, (err) => {
+        if (err) {
+            console.log("ERRO: ", err)
+        } else {
+            console.log("Tudo funcionando.")
+        }
+    })
