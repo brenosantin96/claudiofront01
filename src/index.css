@@ -23,26 +23,29 @@ body {
     height: 50px;
 }
 
+.navBarAttributes {
+    height: 70px;
+}
+
 .navbarMenu {
     margin-right: 30px;
 }
 
-.navbarItem {
-    height: 65px;
-}
-
 .linksnavbarMenu {
-    padding: 10px;
-    font-size: 20px;
-    color: #3d3b3b;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #212020;
     text-decoration: none;
+    border-bottom: 3px solid #F8F9FA;
 }
 
 .linksnavbarMenu:hover {
-    color: #3d3b3b;
-    border-bottom: 2px solid #3d3b3b;
-    text-decoration: none;
-    padding: 5px;
+    color: #212020;
+    border-bottom: 3px solid #212020;
+    transition: all ease .4s;
 }
 
 .leftAreaFacturasPage {

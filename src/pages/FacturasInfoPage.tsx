@@ -9,6 +9,8 @@ import Select from 'react-select';
 import { ConductorType } from '../types/ConductorType'
 import { ProvedorType } from '../types/ProvedorType'
 import { ObraType } from '../types/ObraType'
+import { formatDate } from '../helpers/helperDate'
+import { convertToMoney } from '../helpers/convertNumbers'
 
 
 export const FacturasInfoPage = () => {
@@ -49,6 +51,7 @@ export const FacturasInfoPage = () => {
   }, []);
 
   ////////////////////////////////////////////////////////////////////////
+
 
   //GETTING ALL INFO
   const getFacturaInfo = async () => {
@@ -128,34 +131,50 @@ export const FacturasInfoPage = () => {
 
   const handleNumberFacturaInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNumberFactura(parseInt(e.target.value));
+    if (facturaInfo) {
+      setFacturaInfo({
+        id: facturaInfo.id, number: parseInt(e.target.value), valor: facturaInfo.valor,
+        dateFactura: facturaInfo.dateFactura, ConductorId: facturaInfo.ConductorId, ObraId: facturaInfo.ObraId, ProvedorId: facturaInfo.ProvedorId
+      })
+    }
   }
 
   const handleDateFactura = (e: ChangeEvent<HTMLDataElement>) => {
 
-    if (e.target.value.length >= 10) {
+    let date = formatDate(e.target.value);
 
-      let valueDateInput = e.target.value;
-      let arrayDateYYMMDD = valueDateInput.split('-');
+    if (date !== undefined) {
+      setDateFactura(date);
 
+      if (facturaInfo) {
+        setFacturaInfo({
+          id: facturaInfo.id, number: facturaInfo.number, valor: facturaInfo.valor,
+          dateFactura: date, ConductorId: facturaInfo.ConductorId, ObraId: facturaInfo.ObraId, ProvedorId: facturaInfo.ProvedorId
+        })
+      }
 
-      let day: string = arrayDateYYMMDD[2];
-      let month: string = arrayDateYYMMDD[1];
-      let year: string = arrayDateYYMMDD[0];
-
-
-
-      let numberDay: number = parseInt(day);
-      let numberMonth: number = parseInt(month) - 1;
-      let numberYear: number = parseInt(year);
-
-      let dateStarted = new Date(numberYear, numberMonth, numberDay, 0, 0, 0);
-      setDateFactura(dateStarted);
-
+    } else {
+      console.log("Data nao informada corretamente.");
     }
+
   }
 
+
+
   const handlePriceFactura = (e: ChangeEvent<HTMLInputElement>) => {
-    setPriceFactura(parseFloat(e.target.value));
+
+    let facturaPriceFloat = parseFloat(e.target.value);
+    console.log(facturaPriceFloat);
+
+    setPriceFactura(facturaPriceFloat);
+    console.log(priceFactura);
+    //Doing this way for the reason that the user wants to keep the other informations.
+    if (facturaInfo) {
+      setFacturaInfo({
+        id: facturaInfo.id, number: facturaInfo.number, valor: facturaPriceFloat,
+        dateFactura: facturaInfo.dateFactura, ConductorId: facturaInfo.ConductorId, ObraId: facturaInfo.ObraId, ProvedorId: facturaInfo.ProvedorId
+      })
+    }
   }
 
   //Handle Selected Obra
@@ -185,8 +204,12 @@ export const FacturasInfoPage = () => {
   //Functions to Edit, Save and Remove.
 
   const saveButton = async () => {
+
     if (facturaInfo) {
-      let response = await api.updateFactura(facturaInfo.id, facturaInfo.number, facturaInfo.dateFactura, facturaInfo.valor, facturaInfo.ProvedorId, facturaInfo.ConductorId, facturaInfo.ObraId)
+      //Doing this way for the reason that the user wants to keep the other informations.
+      console.log("Valor facturaInfo", facturaInfo.valor);
+      let response = await api.updateFactura(facturaInfo.id, facturaInfo.number, facturaInfo.dateFactura, facturaInfo.valor,
+        provedorFactura?.id, obraFactura?.id, conductorFactura?.id)
       console.log(response);
     }
     setDisabledButtonEdit(!disabledButtonEdit);
@@ -253,6 +276,7 @@ export const FacturasInfoPage = () => {
           </div>
         }
       </div>
+      <h3>{dateFactura.toString()}</h3>
     </>
   )
 }
