@@ -7,8 +7,10 @@ const { resolve } = require('path');
 
 dot.config();
 
+console.log("Batata");
 
-const port = process.env.PORT;
+const port =
+    import.meta.env.VITE_APP_PORT;
 
 app.use(corsz);
 
