@@ -1,6 +1,4 @@
-/// <reference types="vite/client" />
-
-export {};
+/* export {};
 
 declare global {
     namespace NodeJS {
@@ -8,4 +6,10 @@ declare global {
         readonly VITE_APP_PORT: string;
       }
     }
+  } */
+
+
+  interface ImportMetaEnv {
+    VITE_PORT?: string;
+    VITE_AUTH_TOKEN?: string;
   }
