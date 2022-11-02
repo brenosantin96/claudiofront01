@@ -19,3 +19,7 @@ app.use(corsz);
 /* app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
 }); */
+
+
+//actualizar version vite
+//seguir documentacao de vite
