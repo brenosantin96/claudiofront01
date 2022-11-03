@@ -37,4 +37,4 @@ A Aplicação frontend vai estar rodando em http://localhost:3000/
 Para testar se está funcionando, acesse a rota http://localhost:3000/ e você será redirecionado para a página de LOGIN. Para fazer login basta usar o usuário padrão claudio@gmail.com e senha 1234. 
 
 
-OBS: Ainda em construção.
+OBS: Ainda em construção...
