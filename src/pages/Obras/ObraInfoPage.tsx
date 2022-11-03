@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../../api'
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Navbar2 } from '../../components/Navbar2';
+import { ExpensesObraComponent } from '../../components/obras/ExpensesObraComponent'
 
 interface ObraInterface {
   id: number;
@@ -37,7 +38,7 @@ export const ObraInfoPage = () => {
     getObraInfo();
   }, []);
 
-//
+  //
   const getObraInfo = async () => {
     if (params.id) {
       let response = await api.GetOneObra(parseInt(params.id));
@@ -171,6 +172,10 @@ export const ObraInfoPage = () => {
           </div>
         }
       </div>
+
+      {obraInfo &&
+        < ExpensesObraComponent idObra={obraInfo.id} />
+      }
     </>
   )
 }

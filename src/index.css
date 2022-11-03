@@ -358,3 +358,7 @@ body {
     background-color: white;
     color: #6f6a6a;
 }
+
+.containerExpenses {
+    border: 1px solid red;
+}
