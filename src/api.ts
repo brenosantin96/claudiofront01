@@ -132,6 +132,14 @@ export const api = {
 
     },
 
+    getFacturasByObraComplete: async (id: number) => {
+
+        let response = await axios.get(`${BASE}/facturasByObraComplete/${id}`);
+        return response.data;
+
+    },
+
+
     getOneFactura: async (id: number) => {
 
         let response = await axios.get(`${BASE}/facturas/${id}`);

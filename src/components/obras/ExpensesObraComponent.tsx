@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { api } from '../../api';
-import { FacturaType } from '../../types/FacturaType';
+import { FacturaType, FacturaTypeWithConductorAndProveedor } from '../../types/FacturaType';
 import { ObraType } from '../../types/ObraType';
+
 
 type PropsExpenses = {
     idObra: number;
@@ -10,8 +11,9 @@ type PropsExpenses = {
 
 export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
 
-    const [facturas, setFacturas] = useState<FacturaType[]>([])
+    const [facturas, setFacturas] = useState<FacturaTypeWithConductorAndProveedor[]>([])
     const [filteredFacturas, setFilteredFacturas] = useState<FacturaType[]>([])
+    const [totalFacturas, setTotalFacturas] = useState(0);
     const [obras, setObras] = useState<ObraType[]>([])
 
     useEffect(() => {
@@ -23,18 +25,61 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
     //To get All Facturas
 
     const getAllFacturasByObra = async () => {
-        let faturas = await api.getFacturasByObra(idObra);
+        let faturas : FacturaTypeWithConductorAndProveedor[] = await api.getFacturasByObraComplete(idObra);
         console.log(faturas)
         if (faturas) {
-            //setFacturas(faturas);
+            setFacturas(faturas);
+            setTotalFacturas(await getTotalValueFacturasByObra());
+
+        }
+    }
+
+    const getTotalValueFacturasByObra = async () => {
+        if (facturas) {
+            const sum = facturas.reduce((accumulator, fact) => {
+                return accumulator + fact.valor;
+            }, 0);
+            
+            return sum;
+        } else {
+            return 0;
         }
     }
 
 
+
     return (
-        <div className='containerExpenses'>
-            <h2>ID da obra pego: {idObra}</h2>
-            
+        <div className='container'>
+            <div className="table-responsive">
+                <table className='table table-sm table-hover'>
+                    <thead>
+                        <tr>
+                            <th>Proveedor</th>
+                            <th>Fecha</th>
+                            <th>Número</th>
+                            <th>Conductor</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {facturas.map((factura) => (
+                            <tr key={factura.id}>
+                                <td>{factura.Provedor.name}</td>
+                                <td>{factura.dateFactura.toString()}</td>
+                                <td>{factura.number}</td>
+                                <td>{factura.Conductor.name}</td>
+                                <td>{factura.valor}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total</td>
+                            <td>{totalFacturas}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     )
 }
@@ -45,3 +90,10 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
         {facturas.map((item) => (<div key={item.id}>{`${item.number} - ${item.dateFactura.toString()} - ${item.valor}`}</div>))}
     </div>
 } */
+
+{/* <h2>Facturas compradas da obra: {idObra}</h2>
+
+{facturas.map((item) =>
+(
+    <div key={item.id}>{`${item.id} - ${item.valor} - ${item.Provedor.name} - ${item.Conductor.name}`}</div>
+))} */}

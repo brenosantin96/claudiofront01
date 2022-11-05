@@ -30,9 +30,6 @@ export const FacturasInfoPage = () => {
   const [proveedores, setProveedores] = useState<ProvedorType[]>([])
   const [obras, setObras] = useState<ObraType[]>([])
   const [conductores, setConductores] = useState<ConductorType[]>([]);
-  const [proveedor, setProveedor] = useState<ProvedorType>()
-  const [obra, setObra] = useState<ObraType>()
-  const [conductor, setConductor] = useState<ConductorType>();
 
   //Fields
   const [numberFactura, setNumberFactura] = useState(0);
@@ -228,55 +225,58 @@ export const FacturasInfoPage = () => {
   return (
     <>
       <Navbar2 />
-      <h3 className='tituloObraInfoPage'>Datos de la Factura</h3>
-      <div className='containerObraInfoItemPage'>
+      <div className="container">
+        <h3 className='tituloObraInfoPage'>Datos de la Factura</h3>
+        <div className='containerObraInfoItemPage'>
 
-        {facturaInfo &&
-          <div className='buttonsObraInfoItem'>
-            <button onClick={startEdditingFactura} disabled={disabledButtonEdit} >Editar</button>
-            <button onClick={showConfirmationExclude}>Eliminar</button>
-            <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
-            <button onClick={backButton}>Volver</button>
-          </div>
-        }
+          {facturaInfo &&
+            <div className='buttonsObraInfoItem'>
+              <button onClick={startEdditingFactura} disabled={disabledButtonEdit} >Editar</button>
+              <button onClick={showConfirmationExclude}>Eliminar</button>
+              <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
+              <button onClick={backButton}>Volver</button>
+            </div>
+          }
 
-        {facturaInfo &&
-          <div className='infosObraInfoItem'>
+          {facturaInfo &&
+            <div className='infosObraInfoItem'>
 
-            <label htmlFor="idObra">ID:</label>
-            <input type="number" readOnly={true} value={facturaInfo.id} name="idObra" />
+              <label htmlFor="idObra">ID:</label>
+              <input type="number" readOnly={true} value={facturaInfo.id} name="idObra" />
 
-            <label htmlFor="nameObra">Numero Factura:</label>
-            <input type="number" readOnly={readOnlyBoolean} placeholder={facturaInfo.number.toString()} value={numberFactura} onChange={handleNumberFacturaInput} name="nameObra" />
+              <label htmlFor="nameObra">Numero Factura:</label>
+              <input type="number" readOnly={readOnlyBoolean} placeholder={facturaInfo.number.toString()} value={numberFactura} onChange={handleNumberFacturaInput} name="nameObra" />
 
-            <label htmlFor="dateStartObra">Fecha Factura:</label>
-            <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
+              <label htmlFor="dateStartObra">Fecha Factura:</label>
+              <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
 
-            <label htmlFor="presupuestoObra">Precio Factura:</label>
-            <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.valor} onChange={handlePriceFactura} name="presupuestoObra" />
+              <label htmlFor="presupuestoObra">Precio Factura:</label>
+              <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.valor} onChange={handlePriceFactura} name="presupuestoObra" />
 
-            <label htmlFor="obraFactura">Proveedor:</label>
-            <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
+              <label htmlFor="obraFactura">Proveedor:</label>
+              <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
 
-            <label htmlFor="obraFactura">Obra:</label>
-            <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
+              <label htmlFor="obraFactura">Obra:</label>
+              <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
 
-            <label htmlFor="obraFactura">Conductor:</label>
-            <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Conductor" options={conductores} onChange={HandleSelectedConductor} />
+              <label htmlFor="obraFactura">Conductor:</label>
+              <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Conductor" options={conductores} onChange={HandleSelectedConductor} />
 
-            <br />
-          </div>
-        }
+              <br />
+            </div>
+          }
 
 
-        {booleanConfirmationExclude && facturaInfo &&
-          <div>
-            <h4 style={{ color: "white" }}>¿Realmente desea eliminar esta factura?</h4>
-            <button onClick={() => delButton(facturaInfo.id)} >Eliminar</button>
-          </div>
-        }
+          {booleanConfirmationExclude && facturaInfo &&
+            <div>
+              <h4 style={{ color: "white" }}>¿Realmente desea eliminar esta factura?</h4>
+              <button onClick={() => delButton(facturaInfo.id)} >Eliminar</button>
+            </div>
+          }
+        </div>
+        <h3>{dateFactura.toString()}</h3>
+
       </div>
-      <h3>{dateFactura.toString()}</h3>
     </>
   )
 }
