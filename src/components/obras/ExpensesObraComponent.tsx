@@ -18,6 +18,7 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
 
     useEffect(() => {
         getAllFacturasByObra();
+        getTotalValueFacturasByObra()
 
     }, [])
 
@@ -25,11 +26,11 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
     //To get All Facturas
 
     const getAllFacturasByObra = async () => {
-        let faturas : FacturaTypeWithConductorAndProveedor[] = await api.getFacturasByObraComplete(idObra);
-        console.log(faturas)
+        let faturas: FacturaTypeWithConductorAndProveedor[] = await api.getFacturasByObraComplete(idObra);
         if (faturas) {
             setFacturas(faturas);
-            setTotalFacturas(await getTotalValueFacturasByObra());
+            console.log(facturas);
+
 
         }
     }
@@ -39,8 +40,8 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
             const sum = facturas.reduce((accumulator, fact) => {
                 return accumulator + fact.valor;
             }, 0);
-            
-            return sum;
+            setTotalFacturas(sum);
+
         } else {
             return 0;
         }
