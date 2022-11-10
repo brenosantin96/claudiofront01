@@ -38,12 +38,11 @@ export const ProvedorInfoPage = () => {
 
     const getProvedorInfo = async () => {
         if (params.id) {
+
             let response = await api.GetOneProvedor(parseInt(params.id));
             if (response) {
-                let provedor = response.provedor
+                let provedor = response.provedor 
                 setProvedorInfo(provedor);
-                setEditInputNameProvedor(provedor.name);
-                console.log(provedor);
             }
             if (!response) {
                 setProvedorInfo({ id: 0, name: "Não encontrado" })
@@ -60,6 +59,9 @@ export const ProvedorInfoPage = () => {
 
     //Buttons
     const startEdditingProvedor = () => {
+        if(provedorInfo){
+            setEditInputNameProvedor(provedorInfo.name)
+        }
         setDisabledButtonSave(!disabledButtonSave);
         setDisabledButtonEdit(!disabledButtonEdit);
         setIsHidden(!isHidden)
@@ -72,24 +74,24 @@ export const ProvedorInfoPage = () => {
     }
 
     //SaveFunction
+    const saveButton = async () => {
 
-    const saveButtonEdit = async (id: number, name: string) => {
-        let response = await api.editProvedor(id, name)
-        if (response) {
-            console.log("Editado com sucesso", response);
-            setDisabledButtonEdit(!disabledButtonEdit);
-            setDisabledButtonSave(!disabledButtonSave);
-            setIsHidden(!isHidden)
-            setreadOnlyBoolean(!readOnlyBoolean);
+        if (provedorInfo) {
+            let response = await api.editProvedor(provedorInfo.id, editInputNameProvedor)
+            console.log(response);
+            setProvedorInfo(response.provedor)
         }
+        setDisabledButtonEdit(!disabledButtonEdit);
+        setDisabledButtonSave(!disabledButtonSave);
+        setIsHidden(!isHidden);
+        setreadOnlyBoolean(!readOnlyBoolean);
+        
     }
 
     //Delete Function
-
     const executeDeleteProvedor = async (id: number) => {
         let response = await api.deleteOneProvedor(id);
         if (response) {
-            console.log("excluido com sucesso", response);
             navigate('/provedores');
         }
     }
@@ -107,7 +109,7 @@ export const ProvedorInfoPage = () => {
                     <div className='buttonsProvedorInfoItem d-flex justify-content-center mt-3'>
                         <button onClick={startEdditingProvedor} disabled={disabledButtonEdit} >Editar</button>
                         <button onClick={showConfirmationExclude}>Eliminar</button>
-                        <button onClick={() => saveButtonEdit(provedorInfo.id, editInputNameProvedor)} disabled={disabledButtonSave}>Guardar</button>
+                        <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
                         <button onClick={backButton}>Volver</button>
                     </div>
                 }

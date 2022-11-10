@@ -45,7 +45,6 @@ export const ObraInfoPage = () => {
       let response = await api.GetOneObra(parseInt(params.id));
       if (response) {
         let obra = response.obra;
-        console.log(obra);
         setObraInfo(obra);
       }
       if (!response) {
@@ -63,6 +62,22 @@ export const ObraInfoPage = () => {
 
   //Buttons
   const startEdditingProvedor = () => {
+
+    if(obraInfo){
+      //name
+      setEditInputNameObra(obraInfo.name)
+      //direcion
+      if(obraInfo.direccion){
+        setEditInputDireccionObra(obraInfo.direccion)
+      }
+      if(obraInfo.presupuesto){
+        setEditInputPresupuestoObra(obraInfo.presupuesto)
+      }
+      if(obraInfo.dateStart){
+        setDateStartObra(obraInfo.dateStart)
+      }
+    }
+
     setDisabledButtonSave(!disabledButtonSave);
     setDisabledButtonEdit(!disabledButtonEdit);
     setIsHidden(!isHidden)
@@ -121,11 +136,13 @@ export const ObraInfoPage = () => {
     if (obraInfo) {
       let response = await api.editObras(obraInfo.id, editInputNameObra, editInputDireccionObra, editInputPresupuestoObra, dateStartObra)
       console.log(response);
+      setObraInfo(response.obra)
     }
     setDisabledButtonEdit(!disabledButtonEdit);
     setDisabledButtonSave(!disabledButtonSave);
     setIsHidden(!isHidden);
     setreadOnlyBoolean(!readOnlyBoolean);
+    
   }
 
   const delButton = async (id: number) => {
@@ -184,7 +201,7 @@ export const ObraInfoPage = () => {
                     </tr>
                     <tr>
                       <td>Fecha Inicio</td>
-                      <td>xx</td>
+                      <td>{obraInfo.dateStart ? obraInfo.dateStart.toString() : "Ss"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -198,11 +215,11 @@ export const ObraInfoPage = () => {
                 <label htmlFor="idObra">ID:</label>
                 <input type="number" readOnly={true} value={obraInfo.id} name="idObra" />
                 <label htmlFor="nameObra">Nombre:</label>
-                <input type="text" readOnly={readOnlyBoolean} value={obraInfo.name} onChange={changeNameObraInput} name="nameObra" />
+                <input type="text" readOnly={readOnlyBoolean} value={editInputNameObra} onChange={changeNameObraInput} name="nameObra" />
                 <label htmlFor="direccionObra">Direccion:</label>
-                <input type="text" readOnly={readOnlyBoolean} value={obraInfo.direccion} onChange={changeDireccionObraInput} name="direccionObra" />
+                <input type="text" readOnly={readOnlyBoolean} value={editInputDireccionObra} onChange={changeDireccionObraInput} name="direccionObra" />
                 <label htmlFor="presupuestoObra">Presupuesto:</label>
-                <input type="number" readOnly={readOnlyBoolean} value={obraInfo.presupuesto} onChange={changePresupuestoObraInput} name="presupuestoObra" />
+                <input type="number" readOnly={readOnlyBoolean} value={editInputPresupuestoObra} onChange={changePresupuestoObraInput} name="presupuestoObra" />
                 <label htmlFor="dateStartObra">Fecha inicio:</label>
                 <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de inicio" onChange={changeDateObraInput} />
                 <br />

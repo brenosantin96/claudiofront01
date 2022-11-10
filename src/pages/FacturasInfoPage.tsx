@@ -104,6 +104,17 @@ export const FacturasInfoPage = () => {
 
   //Buttons
   const startEdditingFactura = () => {
+
+
+    if(facturaInfo){
+      //numero
+      setNumberFactura(facturaInfo.number)
+      //date
+      setDateFactura(facturaInfo.dateFactura);
+      //valor
+      setPriceFactura(facturaInfo.valor)
+    }
+
     setDisabledButtonSave(!disabledButtonSave);
     setDisabledButtonEdit(!disabledButtonEdit);
     setIsHidden(!isHidden)
@@ -216,6 +227,7 @@ export const FacturasInfoPage = () => {
     setDisabledButtonSave(!disabledButtonSave);
     setIsHidden(!isHidden);
     setreadOnlyBoolean(!readOnlyBoolean);
+    getFacturaInfo();
   }
 
   const delButton = async (id: number) => {
@@ -334,7 +346,6 @@ export const FacturasInfoPage = () => {
             </div>
           }
         </div>
-        <h3>{dateFactura.toString()}</h3>
 
       </div>
     </>
