@@ -27,6 +27,7 @@ export const ObraInfoPage = () => {
   const [disabledButtonSave, setDisabledButtonSave] = useState(true);
   const [disabledButtonEdit, setDisabledButtonEdit] = useState(false);
   const [booleanConfirmationExclude, setBooleanConfirmationExclude] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   //Fields
   const [editInputNameObra, setEditInputNameObra] = useState('');
@@ -64,6 +65,7 @@ export const ObraInfoPage = () => {
   const startEdditingProvedor = () => {
     setDisabledButtonSave(!disabledButtonSave);
     setDisabledButtonEdit(!disabledButtonEdit);
+    setIsHidden(!isHidden)
     setreadOnlyBoolean(false);
   }
 
@@ -122,6 +124,7 @@ export const ObraInfoPage = () => {
     }
     setDisabledButtonEdit(!disabledButtonEdit);
     setDisabledButtonSave(!disabledButtonSave);
+    setIsHidden(!isHidden);
     setreadOnlyBoolean(!readOnlyBoolean);
   }
 
@@ -136,11 +139,10 @@ export const ObraInfoPage = () => {
   return (
     <>
       <Navbar2 />
-      <h3 className='tituloObraInfoPage'>Datos de la Obra</h3>
-      <div className='containerObraInfoItemPage'>
+      <div className="container">
 
         {obraInfo &&
-          <div className='buttonsObraInfoItem'>
+          <div className='buttonsObraInfoItem d-flex justify-content-center mt-3'>
             <button onClick={startEdditingProvedor} disabled={disabledButtonEdit} >Editar</button>
             <button onClick={showConfirmationExclude}>Eliminar</button>
             <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
@@ -148,34 +150,83 @@ export const ObraInfoPage = () => {
           </div>
         }
 
+
+
+        <div className='containerInfoPage'>
+
+          <div className="leftSideInfoPage">
+            {obraInfo &&
+
+              <div className="table-responsive" style={{display: !isHidden ? "flex" : "none"}}>
+                <table className='table table-sm table-hover '>
+                  <thead>
+                    <tr>
+                      <th>Descripción</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>{obraInfo.id}</td>
+                    </tr>
+                    <tr>
+                      <td>Nombre</td>
+                      <td>{obraInfo.name}</td>
+                    </tr>
+                    <tr>
+                      <td>Dirección</td>
+                      <td>{obraInfo.direccion}</td>
+                    </tr>
+                    <tr>
+                      <td>Precio</td>
+                      <td>{obraInfo.presupuesto}</td>
+                    </tr>
+                    <tr>
+                      <td>Fecha Inicio</td>
+                      <td>xx</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
+
+          <div className="rightSideInfoPage">
+            {obraInfo &&
+              <div className='infoItemEdit' style={{display: isHidden ? "flex" : "none"}}>
+                <label htmlFor="idObra">ID:</label>
+                <input type="number" readOnly={true} value={obraInfo.id} name="idObra" />
+                <label htmlFor="nameObra">Nombre:</label>
+                <input type="text" readOnly={readOnlyBoolean} value={obraInfo.name} onChange={changeNameObraInput} name="nameObra" />
+                <label htmlFor="direccionObra">Direccion:</label>
+                <input type="text" readOnly={readOnlyBoolean} value={obraInfo.direccion} onChange={changeDireccionObraInput} name="direccionObra" />
+                <label htmlFor="presupuestoObra">Presupuesto:</label>
+                <input type="number" readOnly={readOnlyBoolean} value={obraInfo.presupuesto} onChange={changePresupuestoObraInput} name="presupuestoObra" />
+                <label htmlFor="dateStartObra">Fecha inicio:</label>
+                <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de inicio" onChange={changeDateObraInput} />
+                <br />
+              </div>
+            }
+          </div>
+
+
+
+
+          {booleanConfirmationExclude && obraInfo &&
+            <div>
+              <h4 style={{ color: "#000000" }}>¿Realmente desea eliminar esta obra?</h4>
+              <button onClick={() => delButton(obraInfo.id)} >Eliminar</button>
+            </div>
+          }
+        </div>
+
+
         {obraInfo &&
-          <div className='infosObraInfoItem'>
-            <label htmlFor="idObra">ID:</label>
-            <input type="number" readOnly={true} value={obraInfo.id} name="idObra" />
-            <label htmlFor="nameObra">Nombre:</label>
-            <input type="text" readOnly={readOnlyBoolean} placeholder={obraInfo.name} value={editInputNameObra} onChange={changeNameObraInput} name="nameObra" />
-            <label htmlFor="direccionObra">Direccion:</label>
-            <input type="text" readOnly={readOnlyBoolean} placeholder={obraInfo.direccion} value={editInputDireccionObra} onChange={changeDireccionObraInput} name="direccionObra" />
-            <label htmlFor="presupuestoObra">Presupuesto:</label>
-            <input type="number" readOnly={readOnlyBoolean} value={obraInfo.presupuesto} onChange={changePresupuestoObraInput} name="presupuestoObra" />
-            <label htmlFor="dateStartObra">Fecha inicio:</label>
-            <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de inicio" onChange={changeDateObraInput} />
-            <br />
-          </div>
+          < ExpensesObraComponent idObra={obraInfo.id} />
         }
 
-
-        {booleanConfirmationExclude && obraInfo &&
-          <div>
-            <h4 style={{ color: "white" }}>¿Realmente desea eliminar esta obra?</h4>
-            <button onClick={() => delButton(obraInfo.id)} >Eliminar</button>
-          </div>
-        }
       </div>
-
-      {obraInfo &&
-        < ExpensesObraComponent idObra={obraInfo.id} />
-      }
     </>
   )
 }

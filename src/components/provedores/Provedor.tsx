@@ -8,7 +8,7 @@ type Props = {
 
 export const Provedor = ({ id, name }: Props) => {
     return (
-        <Link className="linkProvedorItem" to={`/provedores/${id}`}>
+        <Link className="linkItem" to={`/provedores/${id}`}>
             <div key={id} className="provedorItem">
                 {name}
             </div>

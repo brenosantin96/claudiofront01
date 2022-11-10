@@ -8,7 +8,7 @@ type Props = {
 
 export const FacturaComponent = ({ id, numero }: Props) => {
     return (
-        <Link className="linkObraItem" to={`/facturas/${id}`}>
+        <Link className="linkItem" to={`/facturas/${id}`}>
             <div className="obraItem" key={id}>
                 {`${numero} `}
             </div>

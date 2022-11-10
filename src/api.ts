@@ -125,10 +125,10 @@ export const api = {
 
     },
 
-    getFacturasByObra: async (id: number) => {
+    getFacturasAllInfo: async (id: number) => {
 
-        let response = await axios.get(`${BASE}/facturasByObra/${id}`);
-        return response.data.facturasByObra;
+        let response = await axios.get(`${BASE}/facturasAllInfo`);
+        return response.data.facturasAllInfo;
 
     },
 

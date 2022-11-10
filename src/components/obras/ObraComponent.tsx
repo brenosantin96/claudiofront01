@@ -8,7 +8,7 @@ type Props = {
 
 export const ObraComponent = ({ id, name }: Props) => {
     return (
-        <Link className="linkObraItem" to={`/obras/${id}`}>
+        <Link className="linkItem" to={`/obras/${id}`}>
             <div className="obraItem" key={id}>
                 {name}
             </div>

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Navbar2 } from '../components/Navbar2';
-import { FacturaType } from '../types/FacturaType'
+import { FacturaType, FacturaTypeWithConductorAndProveedor } from '../types/FacturaType'
 import Select from 'react-select';
 import { ConductorType } from '../types/ConductorType'
 import { ProvedorType } from '../types/ProvedorType'
@@ -19,12 +19,14 @@ export const FacturasInfoPage = () => {
   const navigate = useNavigate();
 
   const [facturaInfo, setFacturaInfo] = useState<FacturaType>();
+  const [facturas, setFacturas] = useState<FacturaTypeWithConductorAndProveedor[]>([])
 
   //Booleans
   const [readOnlyBoolean, setreadOnlyBoolean] = useState(true);
   const [disabledButtonSave, setDisabledButtonSave] = useState(true);
   const [disabledButtonEdit, setDisabledButtonEdit] = useState(false);
   const [booleanConfirmationExclude, setBooleanConfirmationExclude] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   //Getting Foreing Keys.
   const [proveedores, setProveedores] = useState<ProvedorType[]>([])
@@ -68,6 +70,26 @@ export const FacturasInfoPage = () => {
     }
   }
 
+
+  const getFacturaAllInfo = async () => {
+    if (params.id) {
+      let response = await api.getFacturasAllInfo(parseInt(params.id));
+      if (response) {
+        let factura = response.factura;
+        console.log(factura);
+        setFacturaInfo(factura);
+        return;
+      }
+      else {
+        alert("Factura no encontrada")
+        return;
+      }
+
+    }
+  }
+
+
+
   let getObras = async () => {
     await api.getAllObras()
       .then((response) => {
@@ -104,7 +126,9 @@ export const FacturasInfoPage = () => {
   const startEdditingFactura = () => {
     setDisabledButtonSave(!disabledButtonSave);
     setDisabledButtonEdit(!disabledButtonEdit);
+    setIsHidden(!isHidden)
     setreadOnlyBoolean(false);
+
     //ao clicar para adicionar fatura, faz um map em proveedores adicionando value e label para exibir no select.
     let optionsProveedores = proveedores.map(obj => ({ ...obj, value: obj.id.toString(), label: obj.name }));
     let optionsObras = obras.map(obj => ({ ...obj, value: obj.id.toString(), label: obj.name }));
@@ -211,6 +235,7 @@ export const FacturasInfoPage = () => {
     }
     setDisabledButtonEdit(!disabledButtonEdit);
     setDisabledButtonSave(!disabledButtonSave);
+    setIsHidden(!isHidden);
     setreadOnlyBoolean(!readOnlyBoolean);
   }
 
@@ -226,45 +251,101 @@ export const FacturasInfoPage = () => {
     <>
       <Navbar2 />
       <div className="container">
-        <h3 className='tituloObraInfoPage'>Datos de la Factura</h3>
-        <div className='containerObraInfoItemPage'>
 
-          {facturaInfo &&
-            <div className='buttonsObraInfoItem'>
-              <button onClick={startEdditingFactura} disabled={disabledButtonEdit} >Editar</button>
-              <button onClick={showConfirmationExclude}>Eliminar</button>
-              <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
-              <button onClick={backButton}>Volver</button>
-            </div>
-          }
+        {facturaInfo &&
+          <div className='buttonsObraInfoItem d-flex justify-content-center mt-3'>
+            <button onClick={startEdditingFactura} disabled={disabledButtonEdit} >Editar</button>
+            <button onClick={showConfirmationExclude}>Eliminar</button>
+            <button onClick={saveButton} disabled={disabledButtonSave}>Guardar</button>
+            <button onClick={backButton}>Volver</button>
+          </div>
+        }
 
-          {facturaInfo &&
-            <div className='infosObraInfoItem'>
+        <div className='containerInfoPage'>
 
-              <label htmlFor="idObra">ID:</label>
-              <input type="number" readOnly={true} value={facturaInfo.id} name="idObra" />
+          <div className="leftSideInfoPage">
+            {facturaInfo &&
 
-              <label htmlFor="nameObra">Numero Factura:</label>
-              <input type="number" readOnly={readOnlyBoolean} placeholder={facturaInfo.number.toString()} value={numberFactura} onChange={handleNumberFacturaInput} name="nameObra" />
+              <div className="table-responsive" style={{display: !isHidden ? "flex" : "none"}}>
+                <table className='table table-sm table-hover '>
+                  <thead>
+                    <tr>
+                      <th>Descripción</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>{facturaInfo.id}</td>
+                    </tr>
+                    <tr>
+                      <td>Número</td>
+                      <td>{facturaInfo.number}</td>
+                    </tr>
+                    <tr>
+                      <td>Fecha</td>
+                      <td>{facturaInfo.dateFactura.toString()}</td>
+                    </tr>
+                    <tr>
+                      <td>Precio</td>
+                      <td>{facturaInfo.valor}</td>
+                    </tr>
+                    <tr>
+                      <td>Proveedor</td>
+                      <td>{facturaInfo.ProvedorId}</td>
+                    </tr>
+                    <tr>
+                      <td>Obra</td>
+                      <td>{facturaInfo.ObraId}</td>
+                    </tr>
+                    <tr>
+                      <td>Conductor</td>
+                      <td>{facturaInfo.ConductorId}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            }
+          </div>
 
-              <label htmlFor="dateStartObra">Fecha Factura:</label>
-              <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
 
-              <label htmlFor="presupuestoObra">Precio Factura:</label>
-              <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.valor} onChange={handlePriceFactura} name="presupuestoObra" />
+          <div className="rightSideInfoPage">
 
-              <label htmlFor="obraFactura">Proveedor:</label>
-              <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
+            {facturaInfo &&
+              <div className='infoItemEdit' style={{display: isHidden ? 'flex' : 'none' }}>
 
-              <label htmlFor="obraFactura">Obra:</label>
-              <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
+                <label htmlFor="idObra">ID:</label>
+                <input type="number" readOnly={true} value={facturaInfo.id} name="idObra" />
 
-              <label htmlFor="obraFactura">Conductor:</label>
-              <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Conductor" options={conductores} onChange={HandleSelectedConductor} />
+                <label htmlFor="nameObra">Numero Factura:</label>
+                <input type="number" readOnly={readOnlyBoolean}  value={facturaInfo.number} onChange={handleNumberFacturaInput} name="nameObra" />
 
-              <br />
-            </div>
-          }
+                <label htmlFor="dateStartObra">Fecha Factura:</label>
+                <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
+
+                <label htmlFor="presupuestoObra">Precio Factura:</label>
+                <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.valor} onChange={handlePriceFactura} name="presupuestoObra" />
+
+                <label htmlFor="obraFactura">Proveedor:</label>
+                <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
+
+                <label htmlFor="obraFactura">Obra:</label>
+                <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
+
+                <label htmlFor="obraFactura">Conductor:</label>
+                <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Conductor" options={conductores} onChange={HandleSelectedConductor} />
+
+                <br />
+              </div>
+            }
+
+          </div>
+
+
+
+
+
 
 
           {booleanConfirmationExclude && facturaInfo &&
