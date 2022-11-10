@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Navbar2 } from '../components/Navbar2';
-import { FacturaType, FacturaTypeWithConductorAndProveedor } from '../types/FacturaType'
+import { FacturaType, FacturaTypeComplete } from '../types/FacturaType'
 import Select from 'react-select';
 import { ConductorType } from '../types/ConductorType'
 import { ProvedorType } from '../types/ProvedorType'
@@ -18,8 +18,7 @@ export const FacturasInfoPage = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [facturaInfo, setFacturaInfo] = useState<FacturaType>();
-  const [facturas, setFacturas] = useState<FacturaTypeWithConductorAndProveedor[]>([])
+  const [facturaInfo, setFacturaInfo] = useState<FacturaTypeComplete>();
 
   //Booleans
   const [readOnlyBoolean, setreadOnlyBoolean] = useState(true);
@@ -55,10 +54,10 @@ export const FacturasInfoPage = () => {
   //GETTING ALL INFO
   const getFacturaInfo = async () => {
     if (params.id) {
-      let response = await api.getOneFactura(parseInt(params.id));
+      let response = await api.getFacturaByID(parseInt(params.id));
       if (response) {
-        let factura = response.factura;
-        console.log(factura);
+        console.log(response)
+        let factura = response;
         setFacturaInfo(factura);
         return;
       }
@@ -69,25 +68,6 @@ export const FacturasInfoPage = () => {
 
     }
   }
-
-
-  const getFacturaAllInfo = async () => {
-    if (params.id) {
-      let response = await api.getFacturasAllInfo(parseInt(params.id));
-      if (response) {
-        let factura = response.factura;
-        console.log(factura);
-        setFacturaInfo(factura);
-        return;
-      }
-      else {
-        alert("Factura no encontrada")
-        return;
-      }
-
-    }
-  }
-
 
 
   let getObras = async () => {
@@ -228,7 +208,6 @@ export const FacturasInfoPage = () => {
 
     if (facturaInfo) {
       //Doing this way for the reason that the user wants to keep the other informations.
-      console.log("Valor facturaInfo", facturaInfo.valor);
       let response = await api.updateFactura(facturaInfo.id, facturaInfo.number, facturaInfo.dateFactura, facturaInfo.valor,
         provedorFactura?.id, obraFactura?.id, conductorFactura?.id)
       console.log(response);
@@ -293,15 +272,15 @@ export const FacturasInfoPage = () => {
                     </tr>
                     <tr>
                       <td>Proveedor</td>
-                      <td>{facturaInfo.ProvedorId}</td>
+                      <td>{facturaInfo.Provedor?.name}</td>
                     </tr>
                     <tr>
                       <td>Obra</td>
-                      <td>{facturaInfo.ObraId}</td>
+                      <td>{facturaInfo.Obra?.direccion}</td>
                     </tr>
                     <tr>
                       <td>Conductor</td>
-                      <td>{facturaInfo.ConductorId}</td>
+                      <td>{facturaInfo.Conductor?.name}</td>
                     </tr>
                   </tbody>
                 </table>

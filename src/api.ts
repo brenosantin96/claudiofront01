@@ -125,10 +125,17 @@ export const api = {
 
     },
 
-    getFacturasAllInfo: async (id: number) => {
+    getFacturasAllInfo: async () => {
 
         let response = await axios.get(`${BASE}/facturasAllInfo`);
         return response.data.facturasAllInfo;
+
+    },
+
+    getFacturaByID: async (id: number) => {
+
+        let response = await axios.get(`${BASE}/facturasInfo/${id}`);
+        return response.data.factura;
 
     },
 
