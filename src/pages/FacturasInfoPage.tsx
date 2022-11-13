@@ -106,7 +106,7 @@ export const FacturasInfoPage = () => {
   const startEdditingFactura = () => {
 
 
-    if(facturaInfo){
+    if (facturaInfo) {
       //numero
       setNumberFactura(facturaInfo.number)
       //date
@@ -219,8 +219,13 @@ export const FacturasInfoPage = () => {
 
     if (facturaInfo) {
       //Doing this way for the reason that the user wants to keep the other informations.
+
+      console.log("Informacoes Factura", facturaInfo.id, facturaInfo.number, facturaInfo.dateFactura, facturaInfo.valor,
+        provedorFactura?.id, obraFactura?.id, conductorFactura?.id)
+
       let response = await api.updateFactura(facturaInfo.id, facturaInfo.number, facturaInfo.dateFactura, facturaInfo.valor,
         provedorFactura?.id, obraFactura?.id, conductorFactura?.id)
+        
       console.log(response);
     }
     setDisabledButtonEdit(!disabledButtonEdit);
@@ -257,7 +262,7 @@ export const FacturasInfoPage = () => {
           <div className="leftSideInfoPage">
             {facturaInfo &&
 
-              <div className="table-responsive" style={{display: !isHidden ? "flex" : "none"}}>
+              <div className="table-responsive" style={{ display: !isHidden ? "flex" : "none" }}>
                 <table className='table table-sm table-hover '>
                   <thead>
                     <tr>
@@ -304,16 +309,16 @@ export const FacturasInfoPage = () => {
           <div className="rightSideInfoPage">
 
             {facturaInfo &&
-              <div className='infoItemEdit' style={{display: isHidden ? 'flex' : 'none' }}>
+              <div className='infoItemEdit' style={{ display: isHidden ? 'flex' : 'none' }}>
 
                 <label htmlFor="idObra">ID:</label>
                 <input type="number" readOnly={true} value={facturaInfo.id} name="idObra" />
 
                 <label htmlFor="nameObra">Numero Factura:</label>
-                <input type="number" readOnly={readOnlyBoolean}  value={facturaInfo.number} onChange={handleNumberFacturaInput} name="nameObra" />
+                <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.number} onChange={handleNumberFacturaInput} name="nameObra" />
 
                 <label htmlFor="dateStartObra">Fecha Factura:</label>
-                <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
+                <input type="date" readOnly={readOnlyBoolean} max={"9999-12-31"} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
 
                 <label htmlFor="presupuestoObra">Precio Factura:</label>
                 <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.valor} onChange={handlePriceFactura} name="presupuestoObra" />

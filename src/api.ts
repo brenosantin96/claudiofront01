@@ -167,6 +167,7 @@ export const api = {
 
         let response = await axios.put(`${BASE}/facturas/${id}`, {
             number, dateFactura, valor, ProvedorId, ObraId, ConductorId
+            //1, data , valor, undefined, 10, undefined
         });
         return response.data;
 

@@ -63,17 +63,17 @@ export const ObraInfoPage = () => {
   //Buttons
   const startEdditingProvedor = () => {
 
-    if(obraInfo){
+    if (obraInfo) {
       //name
       setEditInputNameObra(obraInfo.name)
       //direcion
-      if(obraInfo.direccion){
+      if (obraInfo.direccion) {
         setEditInputDireccionObra(obraInfo.direccion)
       }
-      if(obraInfo.presupuesto){
+      if (obraInfo.presupuesto) {
         setEditInputPresupuestoObra(obraInfo.presupuesto)
       }
-      if(obraInfo.dateStart){
+      if (obraInfo.dateStart) {
         setDateStartObra(obraInfo.dateStart)
       }
     }
@@ -94,7 +94,14 @@ export const ObraInfoPage = () => {
   }
 
   const changePresupuestoObraInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setEditInputPresupuestoObra(parseFloat(e.target.value));
+    
+    if(e.target.value.length > 0){
+      setEditInputPresupuestoObra(parseFloat(e.target.value));
+    }
+    if(e.target.value.length === 0){
+      setEditInputPresupuestoObra(0);
+    }
+    
     if (obraInfo) {
       setObraInfo({ id: obraInfo.id, name: obraInfo.name, direccion: obraInfo.direccion, presupuesto: parseFloat(e.target.value) })
     }
@@ -142,14 +149,20 @@ export const ObraInfoPage = () => {
     setDisabledButtonSave(!disabledButtonSave);
     setIsHidden(!isHidden);
     setreadOnlyBoolean(!readOnlyBoolean);
-    
+
   }
 
   const delButton = async (id: number) => {
     if (obraInfo) {
-      let response = await api.deleteOneObra(id);
-      console.log(response);
-      backButton();
+      let response = await api.deleteOneObra(id)
+
+      if (response.error) {
+        alert(response.error);
+        backButton();
+      } else {
+        backButton();
+      }
+
     }
   }
 
@@ -174,7 +187,7 @@ export const ObraInfoPage = () => {
           <div className="leftSideInfoPage">
             {obraInfo &&
 
-              <div className="table-responsive" style={{display: !isHidden ? "flex" : "none"}}>
+              <div className="table-responsive" style={{ display: !isHidden ? "flex" : "none" }}>
                 <table className='table table-sm table-hover '>
                   <thead>
                     <tr>
@@ -211,7 +224,7 @@ export const ObraInfoPage = () => {
 
           <div className="rightSideInfoPage">
             {obraInfo &&
-              <div className='infoItemEdit' style={{display: isHidden ? "flex" : "none"}}>
+              <div className='infoItemEdit' style={{ display: isHidden ? "flex" : "none" }}>
                 <label htmlFor="idObra">ID:</label>
                 <input type="number" readOnly={true} value={obraInfo.id} name="idObra" />
                 <label htmlFor="nameObra">Nombre:</label>
@@ -221,7 +234,7 @@ export const ObraInfoPage = () => {
                 <label htmlFor="presupuestoObra">Presupuesto:</label>
                 <input type="number" readOnly={readOnlyBoolean} value={editInputPresupuestoObra} onChange={changePresupuestoObraInput} name="presupuestoObra" />
                 <label htmlFor="dateStartObra">Fecha inicio:</label>
-                <input type="date" readOnly={readOnlyBoolean} placeholder="Fecha de inicio" onChange={changeDateObraInput} />
+                <input type="date" readOnly={readOnlyBoolean} max={"9999-12-31"} placeholder="Fecha de inicio" onChange={changeDateObraInput} />
                 <br />
               </div>
             }

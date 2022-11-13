@@ -41,7 +41,7 @@ export const ProvedorInfoPage = () => {
 
             let response = await api.GetOneProvedor(parseInt(params.id));
             if (response) {
-                let provedor = response.provedor 
+                let provedor = response.provedor
                 setProvedorInfo(provedor);
             }
             if (!response) {
@@ -59,7 +59,7 @@ export const ProvedorInfoPage = () => {
 
     //Buttons
     const startEdditingProvedor = () => {
-        if(provedorInfo){
+        if (provedorInfo) {
             setEditInputNameProvedor(provedorInfo.name)
         }
         setDisabledButtonSave(!disabledButtonSave);
@@ -85,17 +85,25 @@ export const ProvedorInfoPage = () => {
         setDisabledButtonSave(!disabledButtonSave);
         setIsHidden(!isHidden);
         setreadOnlyBoolean(!readOnlyBoolean);
-        
+
     }
 
     //Delete Function
-    const executeDeleteProvedor = async (id: number) => {
-        let response = await api.deleteOneProvedor(id);
-        if (response) {
-            navigate('/provedores');
+    const delButton = async (id: number) => {
+        if (provedorInfo) {
+          let response = await api.deleteOneObra(id)
+    
+          if (response.error) {
+            alert(response.error);
+            backButton();
+          } else {
+            backButton();
+          }
+    
         }
-    }
+      }
 
+    //Back function
     const backButton = async () => {
         navigate(-1);
     }
@@ -160,7 +168,7 @@ export const ProvedorInfoPage = () => {
                     {booleanConfirmationExclude && provedorInfo &&
                         <div>
                             <h4 style={{ color: "white" }}>¿Realmente desea eliminar este proveedor?</h4>
-                            <button onClick={() => executeDeleteProvedor(provedorInfo.id)} >Eliminar</button>
+                            <button onClick={() => delButton(provedorInfo.id)} >Eliminar</button>
                         </div>
                     }
                 </div>

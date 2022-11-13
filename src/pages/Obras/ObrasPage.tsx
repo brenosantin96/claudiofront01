@@ -88,20 +88,19 @@ export const ObrasPage = () => {
     //Button Functions
 
     const addObra = async () => {
-        const data = await api.createObra(nameObra, direccionObra, presupuestoObra, dateStartObra);
-
-        if (data.msg === "Nome e endereço precisam ser preenchidos.") {
-            alert("Preencher os dados por favor");
+        
+        if (!nameObra || !direccionObra || !presupuestoObra || !dateStartObra) {
+            alert ("Todos campos devem ser preenchidos");
             setAddingObra(false);
             setNameObra("");
             setDateStartObra(new Date());
             setDireccionObra("");
             setPresupuestoObra(0);
             return;
-        }
+        } 
 
-        if (data) {
-            console.log("Provedor criado com sucesso");
+        if(nameObra && direccionObra && presupuestoObra && dateStartObra){
+            const data = await api.createObra(nameObra, direccionObra, presupuestoObra, dateStartObra);
             setAddingObra(false);
             setNameObra("");
             setDateStartObra(new Date());
@@ -135,7 +134,7 @@ export const ObrasPage = () => {
                             <input type="text" placeholder="Introduce el nombre de la obra" value={nameObra} onChange={handleChangeInputNameObra} />
                             <input type="text" placeholder="Introduce la direccion de la obra" onChange={handleChangeDireccionObra} />
                             <input type="number" placeholder="Introduce el presupuesto de la obra" onChange={handleChangePresupuestoObra} />
-                            <input type="date" placeholder="Fecha de inicio" onChange={handleChangeDateObra} />
+                            <input type="date" max={"9999-12-31"} placeholder="Fecha de inicio" onChange={handleChangeDateObra} />
                             <button onClick={addObra}>Agregar Obra</button>
                             <button onClick={() => setAddingObra(false)}>Cierrar</button>
                         </div>}

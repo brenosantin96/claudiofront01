@@ -203,7 +203,12 @@ export const FacturasPage = () => {
                 setNumberFactura(0);
                 setPriceFacturaBase(0);
             }
+        } 
+
+        if(!numberFactura || !dateFactura || !priceFacturaBase || !proveedorSelected || !conductorSelected || !obraSelected){
+            alert ("Todos campos devem ser preenchidos");
         }
+
         getApiFacturas();
 
 
@@ -231,7 +236,7 @@ export const FacturasPage = () => {
                                 <input type="number" className="inputsForm" placeholder="Numero factura" onChange={e => setNumberFactura(parseInt(e.target.value))} />
                                 <Select className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />
                                 <Select className="inputsForm" placeholder="Obra" options={obras} onChange={HandleSelectedObra} />
-                                <input className="inputsForm" type="date" placeholder="Fecha factura" onChange={handleChangeDateFactura} />
+                                <input className="inputsForm" type="date" max={"9999-12-31"} placeholder="Fecha factura" onChange={handleChangeDateFactura} />
                                 <Select className="inputsForm" placeholder="Condutor" options={conductores} onChange={HandleSelectedConductor} />
                                 <input className="inputsForm" type="number" placeholder="Importe Base" onChange={e => setPriceFacturaBase(parseFloat(e.target.value))} />
                                 <button onClick={createFactura}>Agregar Factura</button>
