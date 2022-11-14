@@ -94,16 +94,12 @@ export const ObraInfoPage = () => {
   }
 
   const changePresupuestoObraInput = (e: ChangeEvent<HTMLInputElement>) => {
-    
-    if(e.target.value.length > 0){
-      setEditInputPresupuestoObra(parseFloat(e.target.value));
-    }
-    if(e.target.value.length === 0){
-      setEditInputPresupuestoObra(0);
-    }
-    
+
+    let pricePresupuesto = parseFloat(e.target.value);
+    setEditInputPresupuestoObra(pricePresupuesto);
+
     if (obraInfo) {
-      setObraInfo({ id: obraInfo.id, name: obraInfo.name, direccion: obraInfo.direccion, presupuesto: parseFloat(e.target.value) })
+      setObraInfo({ id: obraInfo.id, name: obraInfo.name, direccion: obraInfo.direccion, presupuesto: pricePresupuesto })
     }
   }
 
@@ -210,7 +206,7 @@ export const ObraInfoPage = () => {
                     </tr>
                     <tr>
                       <td>Precio</td>
-                      <td>{obraInfo.presupuesto}</td>
+                      <td>{obraInfo.presupuesto ? obraInfo.presupuesto : 0}</td>
                     </tr>
                     <tr>
                       <td>Fecha Inicio</td>
