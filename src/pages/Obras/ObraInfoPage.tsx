@@ -95,11 +95,18 @@ export const ObraInfoPage = () => {
 
   const changePresupuestoObraInput = (e: ChangeEvent<HTMLInputElement>) => {
 
-    let pricePresupuesto = parseFloat(e.target.value);
-    setEditInputPresupuestoObra(pricePresupuesto);
+   if(isNaN(parseFloat(e.target.value))){
+      const number = Number(e.target.value);
+      setEditInputPresupuestoObra(number)
+   };
 
+   if(!isNaN(parseFloat(e.target.value))){
+    const number = parseFloat(e.target.value)
+    setEditInputPresupuestoObra(number)
+ };
+    
     if (obraInfo) {
-      setObraInfo({ id: obraInfo.id, name: obraInfo.name, direccion: obraInfo.direccion, presupuesto: pricePresupuesto })
+      setObraInfo({ id: obraInfo.id, name: obraInfo.name, direccion: obraInfo.direccion, presupuesto: editInputPresupuestoObra })
     }
   }
 
@@ -138,7 +145,6 @@ export const ObraInfoPage = () => {
   const saveButton = async () => {
     if (obraInfo) {
       let response = await api.editObras(obraInfo.id, editInputNameObra, editInputDireccionObra, editInputPresupuestoObra, dateStartObra)
-      console.log(response);
       setObraInfo(response.obra)
     }
     setDisabledButtonEdit(!disabledButtonEdit);

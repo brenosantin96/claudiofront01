@@ -18,9 +18,11 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
 
     useEffect(() => {
         getAllFacturasByObra();
-        getTotalValueFacturasByObra()
-
     }, [])
+
+    useEffect(()=> {
+        getTotalValueFacturasByObra();
+    }, [facturas])
 
 
     //To get All Facturas
@@ -29,16 +31,14 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
         let faturas: FacturaTypeWithConductorAndProveedor[] = await api.getFacturasByObraComplete(idObra);
         if (faturas) {
             setFacturas(faturas);
-            console.log(facturas);
-
-
+            console.log(faturas)
         }
     }
 
     const getTotalValueFacturasByObra = async () => {
         if (facturas) {
-            const sum = facturas.reduce((accumulator, fact) => {
-                return accumulator + fact.valor;
+            const sum = facturas.reduce((accumulator, item) => {
+                return accumulator + item.valor;
             }, 0);
             setTotalFacturas(sum);
 
@@ -69,7 +69,7 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
                                 <td>{factura.dateFactura.toString()}</td>
                                 <td>{factura.number}</td>
                                 <td>{factura.Conductor.name}</td>
-                                <td>{factura.valor}</td>
+                                <td>{factura.valor.toFixed(2)}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -85,16 +85,3 @@ export const ExpensesObraComponent = ({ idObra }: PropsExpenses) => {
     )
 }
 
-
-/* {facturas &&
-    <div>
-        {facturas.map((item) => (<div key={item.id}>{`${item.number} - ${item.dateFactura.toString()} - ${item.valor}`}</div>))}
-    </div>
-} */
-
-{/* <h2>Facturas compradas da obra: {idObra}</h2>
-
-{facturas.map((item) =>
-(
-    <div key={item.id}>{`${item.id} - ${item.valor} - ${item.Provedor.name} - ${item.Conductor.name}`}</div>
-))} */}
