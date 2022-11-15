@@ -175,15 +175,14 @@ export const FacturasInfoPage = () => {
 
   const handlePriceFactura = (e: ChangeEvent<HTMLInputElement>) => {
 
-    let facturaPriceFloat = parseFloat(e.target.value);
-    console.log(facturaPriceFloat);
+    let number = parseFloat(e.target.value) || "";
 
-    setPriceFactura(facturaPriceFloat);
-    console.log(priceFactura);
+    setPriceFactura(number as number);
+
     //Doing this way for the reason that the user wants to keep the other informations.
     if (facturaInfo) {
       setFacturaInfo({
-        id: facturaInfo.id, number: facturaInfo.number, valor: facturaPriceFloat,
+        id: facturaInfo.id, number: facturaInfo.number, valor: priceFactura,
         dateFactura: facturaInfo.dateFactura, ConductorId: facturaInfo.ConductorId, ObraId: facturaInfo.ObraId, ProvedorId: facturaInfo.ProvedorId
       })
     }
@@ -321,7 +320,7 @@ export const FacturasInfoPage = () => {
                 <input type="date" readOnly={readOnlyBoolean} max={"9999-12-31"} placeholder="Fecha de compra de factura" onChange={handleDateFactura} />
 
                 <label htmlFor="presupuestoObra">Precio Factura:</label>
-                <input type="number" readOnly={readOnlyBoolean} value={facturaInfo.valor} onChange={handlePriceFactura} name="presupuestoObra" />
+                <input type="number" readOnly={readOnlyBoolean} value={priceFactura} onChange={handlePriceFactura} name="presupuestoObra" />
 
                 <label htmlFor="obraFactura">Proveedor:</label>
                 <Select isDisabled={readOnlyBoolean} className="inputsForm" placeholder="Proveedor" options={proveedores} onChange={HandleSelectedProveedor} />

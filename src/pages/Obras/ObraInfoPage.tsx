@@ -95,16 +95,11 @@ export const ObraInfoPage = () => {
 
   const changePresupuestoObraInput = (e: ChangeEvent<HTMLInputElement>) => {
 
-   if(isNaN(parseFloat(e.target.value))){
-      const number = Number(e.target.value);
-      setEditInputPresupuestoObra(number)
-   };
+    let number = parseFloat(e.target.value) || "";
 
-   if(!isNaN(parseFloat(e.target.value))){
-    const number = parseFloat(e.target.value)
-    setEditInputPresupuestoObra(number)
- };
-    
+      setEditInputPresupuestoObra(number as number);
+
+    //here i update my obra.
     if (obraInfo) {
       setObraInfo({ id: obraInfo.id, name: obraInfo.name, direccion: obraInfo.direccion, presupuesto: editInputPresupuestoObra })
     }
