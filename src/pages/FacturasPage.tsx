@@ -7,6 +7,7 @@ import Select from 'react-select';
 import { api } from '../api'
 import { FacturaComponent } from "../components/facturas/FacturaComponent";
 import { FormSelect, NavItem } from "react-bootstrap";
+import { useParams, useSearchParams } from "react-router-dom";
 
 interface facturaInterface {
     id: number;
@@ -47,8 +48,12 @@ interface conductorInterface {
 export const FacturasPage = () => {
 
 
+    const [params, setParams] = useSearchParams();
+
     //To List Facturas
     const [facturas, setFacturas] = useState<facturaInterface[]>([])
+    const [numPage, setNumPage] = useState(1);
+    const [limit, setLimit] = useState(5);
 
     //Getting Foreing Keys.
     const [proveedores, setProveedores] = useState<proveedorInterface[]>([])
@@ -84,12 +89,17 @@ export const FacturasPage = () => {
     const [dateFactura, setDateFactura] = useState<Date>(new Date());
 
     useEffect(() => {
-        getApiFacturas();
+        // getApiFacturas();
         getProveedores();
         getConductores();
         getObras();
 
     }, [])
+
+    useEffect(() => {
+        getApiFacturasPaginated();
+        console.log(numPage)
+    }, [numPage])
 
 
     let getApiFacturas = async () => {
@@ -97,6 +107,14 @@ export const FacturasPage = () => {
             .then((response) => {
                 setFacturas(response);
             })
+    }
+
+    let getApiFacturasPaginated = async () => {
+        await api.getFacturasPaginated(numPage, limit)
+            .then((response) => {
+                setFacturas(response.results)
+            })
+
     }
 
     let getObras = async () => {
@@ -171,29 +189,7 @@ export const FacturasPage = () => {
 
 
     //Adding factura
-
-    const addFactura = async () => {
-
-
-        if (proveedorSelected === undefined || obraSelected === undefined) {
-            alert("Proveedor y obra deben ser seleccionados")
-        } else {
-            const data = {
-                numero: numberFactura,
-                data: dateFactura,
-                precioBase: priceFacturaBase,
-                comprador: conductorSelected,
-                obra: obraSelected,
-                proveedor: proveedorSelected
-            }
-
-            console.log(data);
-
-        }
-    }
-
     const createFactura = async () => {
-
         if (conductorSelected && obraSelected && proveedorSelected) {
 
             const data = await api.createFacturas(numberFactura as any, dateFactura, priceFacturaBase, conductorSelected.id, obraSelected.id, proveedorSelected.id);
@@ -203,15 +199,43 @@ export const FacturasPage = () => {
                 setNumberFactura(0);
                 setPriceFacturaBase(0);
             }
-        } 
+        }
 
-        if(!numberFactura || !dateFactura || !priceFacturaBase || !proveedorSelected || !conductorSelected || !obraSelected){
-            alert ("Todos campos devem ser preenchidos");
+        if (!numberFactura || !dateFactura || !priceFacturaBase || !proveedorSelected || !conductorSelected || !obraSelected) {
+            alert("Todos campos devem ser preenchidos");
         }
 
         getApiFacturas();
 
+    }
 
+    //controlling parameters
+    const addParams = async () => {
+        setParams({
+            page: numPage.toString(),
+            limit: limit.toString()
+        })
+    }
+
+    //Getting next facturas
+    const nextButton = async () => {
+        setNumPage((numPage) => numPage + 1);
+        setParams({
+            page: numPage.toString(),
+            limit: limit.toString()
+        })
+    }
+
+    //Getting previous facturas
+    const previousButton = async () => {
+        if (numPage > 0) {
+            setNumPage((numPage) => numPage - 1);
+
+            setParams({
+                page: numPage.toString(),
+                limit: limit.toString()
+            })
+        }
     }
 
 
@@ -221,7 +245,9 @@ export const FacturasPage = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-6 mt-2 leftAreaFacturasPage">
-                            {facturas.map((item) => (<FacturaComponent key={item.id} id={item.id} numero={item.number} />))}
+                        {facturas.map((item) => (<FacturaComponent key={item.id} id={item.id} numero={item.number} />))}
+                        <button type="button" onClick={previousButton} className="btn btn-primary m-2">Voltar</button>
+                        <button type="button" onClick={nextButton} className="btn btn-primary m-2">Avancar </button>
                     </div>
 
                     <div className="col-12 col-md-6 mt-2 rightAreaFacturasPage">

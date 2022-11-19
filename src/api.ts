@@ -132,6 +132,13 @@ export const api = {
 
     },
 
+    getFacturasPaginated: async (page: number, limit: number) => {
+
+        let response = await axios.get(`${BASE}/facturas2?page=${page}&limit=${limit}`);
+        return response.data.paginatedResult;
+
+    },
+
     getFacturaByID: async (id: number) => {
 
         let response = await axios.get(`${BASE}/facturasInfo/${id}`);
