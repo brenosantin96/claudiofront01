@@ -6,7 +6,7 @@ import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Main } from "./pages/MainPage";
 import { ObrasPage } from './pages/Obras/ObrasPage';
-import { FacturasPage } from './pages/Facturas/FacturasPage';
+import { FacturasPage } from './pages/FacturasPage';
 import { ProvedoresPage } from './pages/Provedores/ProvedoresPage';
 import {RouteList} from './routes/RouteList'
 
