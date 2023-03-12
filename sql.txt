@@ -1,0 +1,35 @@
+CREATE TABLE provedores (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NULL,
+  `createdAt` DATETIME NULL,
+  PRIMARY KEY (`id`));
+
+
+  CREATE TABLE `claudio2022`.`obras` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `direccion` VARCHAR(100) NOT NULL,
+  `presupuesto` FLOAT NULL,
+  `dateStart` DATE NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `claudio2022`.`facturas` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` INT NOT NULL,
+  `datefactura` DATE NOT NULL,
+  `valor` FLOAT NOT NULL,
+  `provedor` INT NOT NULL,
+  `obra` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `provedorFK_idx` (`provedor` ASC) VISIBLE,
+  INDEX `obraFK_idx` (`obra` ASC) VISIBLE,
+  CONSTRAINT `provedorFK`
+    FOREIGN KEY (`provedor`)
+    REFERENCES `claudio2022`.`provedores` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `obraFK`
+    FOREIGN KEY (`obra`)
+    REFERENCES `claudio2022`.`obras` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

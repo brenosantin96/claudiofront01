@@ -1,0 +1,380 @@
+body {
+    background-color: #CCC;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Arimo', sans-serif;
+}
+
+.imgLogo {
+    margin-left: 30px;
+    height: 50px;
+}
+
+.navBarAttributes {}
+
+.navbarMenu {
+    margin-right: 30px;
+}
+
+.linksnavbarMenu {
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #212020;
+    text-decoration: none;
+    border-bottom: 3px solid #F8F9FA;
+}
+
+.linksnavbarMenu:hover {
+    color: #212020;
+    border-bottom: 3px solid #212020;
+    transition: all ease .4s;
+}
+
+.collapsedNavBar {}
+
+.leftAreaFacturasPage {
+    font-size: 20px;
+    color: black;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.rightAreaFacturasPage {}
+
+.buttonLogin {
+    background-color: #fefe;
+    color: black;
+    padding: 5px;
+    font-size: 22px;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 0;
+    cursor: pointer;
+    margin-top: 40px;
+    width: 100px;
+    transition: all ease .6s;
+}
+
+.buttonLogin:hover {
+    background-color: #3d3b3b;
+    color: #fefefe;
+}
+
+.loginContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleH1 {
+    font-size: 50px;
+    color: #3d3b3b;
+    font-family: 'Akshar', sans-serif;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm input {
+    background-color: white;
+    margin-top: 20px;
+    font-size: 20px;
+    width: 500px;
+    height: 50px;
+    border: 0;
+    outline: none;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.inputsForm::placeholder {
+    /* Firefox, Chrome, Opera */
+    padding-left: 0px;
+}
+
+.inputsForm {
+    height: 50px;
+    outline: none;
+    border: 0;
+    border-radius: 10px;
+}
+
+@media (max-width: 468px) {
+    .loginForm input {
+        width: 300px;
+    }
+}
+
+@media (max-width: 320px) {
+    .loginForm input {
+        width: 220px;
+    }
+}
+
+.containerMain {
+    padding-left: 20px;
+    font-size: 20px;
+    color: #3d3b3b;
+}
+
+.containerObrasPage {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 20px;
+    font-size: 20px;
+    color: 3d3b3b;
+}
+
+.containerProvedores {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 20px;
+    font-size: 20px;
+    color: 3d3b3b;
+}
+
+.leftSideProvedores {
+    /* width: 40%; */
+    height: 400px;
+    overflow-y: auto;
+}
+
+.linkItem {
+    text-decoration: none;
+    color: white;
+}
+
+.linkItem:hover {
+    font-weight: bold;
+    color: white;
+}
+
+.rightSideProvedores {}
+
+.provedorItem {
+    margin: 5px;
+    padding-left: 10px;
+    background-color: #999;
+    border-radius: 10px;
+    border: 1px solid #3d3b3b;
+}
+
+.newProvedorForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.newProvedorForm h2 {
+    color: black;
+}
+
+.newProvedorForm input {
+    margin-bottom: 10px;
+}
+
+.newProvedorForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.editProvedorForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.editProvedorForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inputNumberIDEditProvedor {
+    width: 70px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.editProvedorForm label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.excludingProvedorForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.excludingProvedorForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.inputNumberIDExcludeProvedor {
+    width: 70px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.containerProvedorInfoItemPage {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.tituloProvedorInfoPage {
+    padding-top: 70px;
+    color: black;
+    margin-left: 15px;
+}
+
+.buttonsProvedorInfoItem {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.buttonsProvedorInfoItem button {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.buttonsProvedorInfoItem button:disabled {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.infosProvedorInfoItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.infosProvedorInfoItem input:read-only {
+    background-color: white;
+    color: #6f6a6a;
+}
+
+.leftSideObras {
+    height: 400px;
+    overflow-y: auto;
+}
+
+.rightSideObras {
+    width: 40%;
+    border: 1 px solid blue;
+    height: 600px;
+}
+
+.newObraForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.newObraForm input {
+    margin-bottom: 10px;
+}
+
+.newObraForm button {
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.newObraForm h2 {
+    color: black;
+}
+
+.obraItem {
+    margin: 5px;
+    padding-left: 10px;
+    background-color: #999;
+    border-radius: 10px;
+    border: 1px solid #3d3b3b;
+}
+
+.tituloObraInfoPage {
+    padding-top: 70px;
+    color: black;
+    margin-left: 15px;
+}
+
+.containerObraInfoItemPage {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttonsObraInfoItem {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.buttonsObraInfoItem button {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.buttonsObraInfoItem button:disabled {
+    margin: 0 5px;
+    border-radius: 5px;
+    /* margem 0 em cima e embaixo e 10 dos laods */
+}
+
+.infoItemEdit {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoItemEdit input {
+    color: black;
+}
+
+.infoItemEdit input:read-only {
+    background-color: white;
+    color: #6f6a6a;
+}
+
+.infoItemEdit ::placeholder {
+    color: black;
+}
+
+.containerExpenses {
+    border: 1px solid red;
+}
+
+
+/* Facturas  */
+
+.containerInfoPage {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightSideInfoPage {
+    justify-content: center;
+    align-items: center;
+}
+
+.leftSideInfoPage {
+    justify-content: center;
+    align-items: center;
+}
