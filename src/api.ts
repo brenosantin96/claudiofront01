@@ -116,6 +116,36 @@ export const api = {
 
     },
 
+    createConductor: async (name: string, active: boolean) => {
+
+        let response = await axios.post(`${BASE}/conductores`, {
+            name, active
+        });
+        return response.data;
+
+    },
+
+    editConductor: async (id: number, name?: string, active?: boolean) => {
+
+        let response = await axios.put(`${BASE}/conductores/${id}`, {
+            name, active
+        });
+        return response.data;
+
+    },
+
+    GetOneConductor: async (id: number) => {
+
+        let response = await axios.get(`${BASE}/conductores/${id}`);
+        return response.data;
+
+    },
+
+    deleteConductor: async (id: number) => {
+        let response = await axios.delete(`${BASE}/conductores/${id}`);
+        return response.data;
+    },
+
     //FACTURAS
 
     getFacturas: async () => {
